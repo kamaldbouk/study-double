@@ -9,6 +9,9 @@ import LoginPage from "./authPages/LoginPage/LoginPage";
 import RegisterPage from "./authPages/RegisterPage/RegisterPage";
 import Dashboard from "./Dashboard/Dashboard";
 import AlertNotification from "./shared/components/AlertNotification";
+import Home from "./Home/Home";
+import Explore from "./Explore/Explore";
+import PublicProfile from "./Profile/PublicProfile";
 
 import "./App.css";
 
@@ -26,8 +29,17 @@ function App() {
           <Route exact path="/dashboard">
             <Dashboard />
           </Route>
-          <Route path="/">
-            <Redirect to="/dashboard" />
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/">
+            <Redirect to='/home' />
+          </Route>
+          <Route exact path="/explore">
+            <Explore />
+          </Route>
+          <Route exact path="/profile/:id"> 
+            <PublicProfile />
           </Route>
         </Switch>
       </Router>
