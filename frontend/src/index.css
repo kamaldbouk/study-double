@@ -1,13 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Login Page */
+
+.login-header {
+  color: black;
+  font-size: 1.5rem; 
+  font-weight: bold;
+  margin-bottom: 0.625rem;
+}
+
+.login-subtext {
+  color: gray;
+  font-size: 1rem; 
+  margin-top: 0;
+}
+
+/* Register Page */
+
+.register-header {
+  color: black;
+  font-size: 1.5rem; 
+  font-weight: bold;
+  margin-bottom: 0.625rem;
+}
+
+.register-subtext {
+  color: gray;
+  font-size: 1rem; 
+  margin-top: 0;
+}
+
+/* AuthBox Styles */
+
+.box-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #5F8575;
+}
+
+.auth-box {
+  width: 90%; 
+  max-width: 700px; 
+  height: auto; 
+  background-color: #F1F0E9;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 20%);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem; 
+}
+
+
+@media (max-width: 1200px) {
+  .auth-box {
+    width: 80%;
+    padding: 1.5rem; 
+  }
+
+  .login-header, .register-header {
+    font-size: 1.25rem; 
+  }
+
+  .login-subtext, .register-subtext {
+    font-size: 0.875rem; 
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-box {
+    width: 90%;
+    padding: 1rem; 
+  }
+
+  .login-header, .register-header {
+    font-size: 1.125rem; 
+  }
+
+  .login-subtext, .register-subtext {
+    font-size: 0.875rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-box {
+    width: 95%;
+    padding: 0.75rem;
+  }
+
+  .login-header, .register-header {
+    font-size: 1rem;
+  }
+
+  .login-subtext, .register-subtext {
+    font-size: 0.75rem; 
+  }
 }
