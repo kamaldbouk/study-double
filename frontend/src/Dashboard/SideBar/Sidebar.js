@@ -1,5 +1,5 @@
 import React from "react";
-import { margin, padding, styled } from "@mui/system";
+import { styled } from "@mui/system";
 import MainPageButton from "./MainPageButton";
 import CreateRoomButton from "./CreateRoomButton";
 import { connect } from 'react-redux';

@@ -58,11 +58,13 @@ const FriendsListItem = ({ id, username, isOnline, setChosenChatDetails }) => {
           handleNavigateToProfile();
         }}
         style={{
-          marginLeft: "auto",
+          position: 'absolute',
+          left: '150px',
         }}
       >
         <AccountCircleIcon />
       </IconButton>
+      
     </Box>
   );
 };
