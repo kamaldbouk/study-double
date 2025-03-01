@@ -9,6 +9,11 @@ const MainContainer = styled("div")({
   backgroundColor: "#36393f",
   marginTop: "48px",
   display: "flex",
+  flexDirection: 'row',
+  "@media (max-width: 768px)": {
+    flexDirection: "column",
+    marginTop: "0",
+  },
 });
 
 const Messenger = ({ chosenChatDetails }) => {

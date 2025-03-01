@@ -1,5 +1,5 @@
 import React from "react";
-import { styled } from "@mui/system";
+import { margin, padding, styled } from "@mui/system";
 import MainPageButton from "./MainPageButton";
 import CreateRoomButton from "./CreateRoomButton";
 import { connect } from 'react-redux';
@@ -12,6 +12,17 @@ const MainContainer = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   backgroundColor: "#202225",
+  "@media (max-width: 768px)": {
+    width: "100%",
+    height: "auto",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: '40px',
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    padding: "10px"
+  },
 });
 
 const SideBar = ({ activeRooms, isUserInRoom }) => {

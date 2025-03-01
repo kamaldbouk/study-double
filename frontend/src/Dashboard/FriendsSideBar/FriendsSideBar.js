@@ -12,6 +12,11 @@ const MainContainer = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   backgroundColor: "#2F3136",
+  "@media (max-width: 768px)": {
+    width: "100%",
+    height: "auto",
+    padding: "10px",
+  },
 });
 
 const FriendsSideBar = () => {

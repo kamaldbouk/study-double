@@ -8,6 +8,10 @@ const Wrapper = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  "@media (max-width: 768px)": {
+    flexDirection: "column",
+    marginTop: "0",
+  },
 });
 
 const WelcomeMessage = () => {
