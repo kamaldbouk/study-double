@@ -29,7 +29,7 @@ const ActiveRoomButton = ({
                     minWidth: 0,
                     marginTop: "10px",
                     color: "white",
-                    backgroundColor: "#5865F2",
+                    backgroundColor: "#5F8575",
                 }}
                 disabled={activeRoomButtonDisabled || isUserInRoom}
                 onClick={handleJoinActiveRoom}
