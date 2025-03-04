@@ -113,3 +113,113 @@ code {
     font-size: 0.75rem; 
   }
 }
+
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #5F8575;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbarContent1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.navbarContent2 {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.navbarImg {
+  height: 50px;
+}
+
+/* Button Styles */
+.navbarButton {
+  padding: 8px 20px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s;
+}
+
+.navbarButton::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  transition: width 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+.navbarButton:hover::after {
+  width: 100%;
+}
+
+/* Section Styles */
+.firstSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 20px;
+  margin-top: 70px;
+}
+
+.textContainer {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.image {
+  width: 400px;
+  height: auto;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #202225;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Empty Section */
+.secondSection {
+  height: 300px;
+  background-color: #f4f4f4;
+  margin: 20px 0;
+}
+
+/* Third Section */
+.thirdSection {
+  height: 300px;
+  background-color: #f4f4f4;
+  margin: 20px 0;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+

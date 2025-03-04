@@ -16,7 +16,6 @@ const MainContainer = styled("div")({
     width: "100%",
     height: "auto",
     flexDirection: "row",
-    justifyContent: "space-between",
     marginTop: '40px',
     alignItems: "center",
     justifyContent: "center",
