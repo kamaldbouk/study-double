@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import one from '../shared/images/one.png';
+import hero from '../shared/images/hero.png'
 
 const Home = () => {
     const history = useHistory();
@@ -27,13 +28,13 @@ const Home = () => {
 
             <section className="firstSection">
                 <div className="textContainer">
-                    <h1>Welcome to Our Site</h1>
-                    <p>Explore and get started today!</p>
-                    <button className="button">Get Started</button>
+                <span className="typing-text">Are you ready to start Study Doubling?</span>
+                <br />
+                <div class="button_slide slide_right">Learn More!</div>
                 </div>
                 <img
-                    src="https://via.placeholder.com/400"
-                    alt="Placeholder"
+                    src={hero}
+                    alt="People working online"
                     className="image"
                 />
             </section>
