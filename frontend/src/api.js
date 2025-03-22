@@ -46,6 +46,16 @@ export const register = async (data) => {
   }
 };
 
+export const getUserProfile = async (userId) => {
+  try {
+    const response = await apiClient.get(`/profile/${userId}`);
+    return response.data;
+  } catch (exception) {
+    return { error: true, exception };
+  }
+};
+
+
 // secure routes
 export const sendFriendInvitation = async (data) => {
   try {

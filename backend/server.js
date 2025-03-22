@@ -17,6 +17,7 @@ app.use(cors());
 // register the routes
 app.use("/api/auth", authRoutes);
 app.use("/api/friend-invitation", friendInvitationRoutes);
+app.use("/api/profile", require("./routes/profileRoutes"));
 
 const server = http.createServer(app);
 socketServer.registerSocketServer(server);

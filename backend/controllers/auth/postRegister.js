@@ -1,6 +1,7 @@
 const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const UserProfile = require("../../models/userProfile");
 
 const postRegister = async (req, res) => {
   try {
@@ -24,6 +25,21 @@ const postRegister = async (req, res) => {
       username,
       mail: mail.toLowerCase(),
       password: encryptedPassword,
+    });
+
+    // create default user profile
+    await UserProfile.create({
+      userId: user._id,
+      name: username,
+      age: null,
+      dateOfBirth: null,
+      country: "",
+      major: "",
+      communicationStyles: "",
+      biography: "",
+      personalityTestResults: "",
+      preferredStudyTechnique: "",
+      averageSessionLength: null,
     });
 
     // create JWT token
