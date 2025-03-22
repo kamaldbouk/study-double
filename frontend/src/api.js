@@ -3,7 +3,7 @@ import { logout } from "./shared/utils/auth";
 
 const apiClient = axios.create({
   baseURL: "http://localhost:5002/api",
-  timeout: 1000,
+  timeout: 5000,
 });
 
 apiClient.interceptors.request.use(
@@ -82,6 +82,18 @@ export const rejectFriendInvitation = async (data) => {
     };
   }
 };
+
+export const logoutUser = async (username) => {
+  try {
+    return await apiClient.post("/auth/logout", { username });
+  } catch (exception) {
+    return {
+      error: true,
+      exception,
+    };
+  }
+};
+
 
 const checkResponseCode = (exception) => {
   const responseCode = exception?.response?.status;

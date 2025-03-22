@@ -255,11 +255,78 @@ code {
 .secondSection {
   height: 300px;
   background-color: #f4f4f4;
-  margin: 20px 0;
+  margin: 20px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 300ms ease-in-out;
+  transform: translateZ(-75px);
+}
+
+.secondSection:hover {
+  transform: rotateX(-90deg) translateY(75px);
+}
+
+.side {
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.default-side {
+  background-color: white;
+  border: 10px solid #5F8575;
+  color: #5F8575;
+  transform: translateZ(75px);
+}
+
+.hover-side {
+  color: white;
+  background-color: #5F8575;
+  transform: rotateX(90deg) translateZ(75px);
+}
+
+.side h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.side ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.2em; 
+}
+
+.side li {
+  font-size: 1em; 
+}
+
+.side li::before {
+  content: "✔ "; 
+  color: #5F8575;
+  font-weight: bold;
+}
+
+.side p {
+  font-size: 1.2em; 
+  max-width: 80%;
+  line-height: 1.5;
 }
 
 /* Third Section */
 .thirdSection {
+  height: 300px;
+  background-color: #f4f4f4;
+  margin: 20px 0;
+}
+
+/*  Fourth Section */
+.fourthSection {
   height: 300px;
   background-color: #f4f4f4;
   margin: 20px 0;

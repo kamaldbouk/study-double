@@ -39,9 +39,32 @@ const Home = () => {
                 />
             </section>
 
-            <section className="secondSection"></section>
+            <section class="secondSection">
+                <div class="side default-side">
+                    <h1>Study Alone?</h1>
+                    <ul>
+                        Studying alone can be
+                        <li>Demotivating</li>
+                        <li>Overwhelming</li>
+                        <li>Leads to Procrastination</li>
+                        <li>Lack of Focus</li>
+                    </ul>
+                </div>
+                
+                <div class="side hover-side">
+                    <h1>StudyDouble!</h1>
+                    <p>StudyDouble uses the body doubling technique to boost focus and accountability. By matching you with compatible partners, we create a supportive environment for productive and structured study sessions</p>
+                </div>
+            </section>
 
-            <section className="thirdSection"></section>
+            <section className="thirdSection">
+                HOW DOES IT WORK
+            </section>
+
+            <section className="fourthSection">
+                FAQ
+            </section>
+
 
             <footer className="footer">
                 <p>&copy; 2025 Kamal&Mohammad. All rights reserved.</p>

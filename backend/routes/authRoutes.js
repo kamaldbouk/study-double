@@ -21,11 +21,14 @@ router.post(
   validator.body(registerSchema),
   authControllers.controllers.postRegister
 );
+
 router.post(
   "/login",
   validator.body(loginSchema),
   authControllers.controllers.postLogin
 );
+
+router.post("/logout", authControllers.controllers.postLogout);
 
 // test route to verify if our middleware is working
 router.get("/test", auth, (req, res) => {
