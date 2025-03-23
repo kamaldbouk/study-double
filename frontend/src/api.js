@@ -104,6 +104,30 @@ export const logoutUser = async (username) => {
   }
 };
 
+export const updateUserProfile = async (userId, updatedProfile, token) => {
+  try {
+    const response = await fetch(`http://localhost:5002/api/profile/${userId}`, { 
+      method: 'PATCH',
+      body: JSON.stringify(updatedProfile),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to update profile');
+    }
+    return data;
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    return { error: error.message };
+  }
+};
+
 
 const checkResponseCode = (exception) => {
   const responseCode = exception?.response?.status;

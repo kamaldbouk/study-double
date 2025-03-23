@@ -30,6 +30,29 @@ router.post(
 
 router.post("/logout", authControllers.controllers.postLogout);
 
+router.patch("/api/profile/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const updates = req.body;
+
+  try {
+    const updatedProfile = await UserProfile.findOneAndUpdate(
+      { userId: userId },
+      { $set: updates },
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+
+    res.status(200).json(updatedProfile); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 // test route to verify if our middleware is working
 router.get("/test", auth, (req, res) => {
   res.send("request passed");

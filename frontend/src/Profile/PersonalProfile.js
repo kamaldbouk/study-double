@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getUserProfile } from "../api";
 import loadingGif from '../shared/images/load.gif';
 // import Avatar from '../shared/components/Avatar';
 import InputWithLabel from "../shared/components/InputWithLabel";
 import SelectWithLabel from "../shared/components/SelectWithLabel";
+import { getUserProfile, updateUserProfile } from "../api";
+import { useHistory } from "react-router-dom";
 
 const PersonalProfile = () => {
     const [loading, setLoading] = useState(true); 
@@ -14,6 +15,9 @@ const PersonalProfile = () => {
     const [studyTechnique, setStudyTechnique] = useState("");
     const [country, setCountry] = useState("");
     const [major, setMajor] = useState("");
+    const [error, setError] = useState("");
+
+    const history = useHistory();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -44,6 +48,38 @@ const PersonalProfile = () => {
         return <div style={{ textAlign: "center", marginTop: "50px" }}>Profile not found.</div>;
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user?.token) {
+            setError("Authorization token required");
+            return;
+        }
+
+        const updatedProfile = {
+            biography: bio,
+            dob: dob,
+            country: country,
+            major: major,
+            communicationStyles: communication,
+            preferredStudyTechnique: studyTechnique,
+        };
+
+        try {
+            const response = await updateUserProfile(user._id, updatedProfile, user.token);
+            if (response.error) {
+                setError(response.error);
+            } else {
+                setProfile(response.data); 
+                history.push("/my-profile");
+            }
+        } catch (error) {
+            setError("Failed to update profile.");
+            console.error("Error updating profile:", error);
+        }
+    };
+
     const countries = ["USA", "Canada", "UK", "Germany", "France"];
     const majors = ["Computer Science", "Engineering", "Business", "Psychology"];
     const communicationStyles = ["Direct", "Casual", "Formal", "Collaborative"];
@@ -54,6 +90,7 @@ const PersonalProfile = () => {
         <div className="info-container">
             <h2>Welcome, {profile.name}!</h2>
             <p>To get started StudyDoubling, you must complete your profile.</p>
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <InputWithLabel
                 value={bio}
                 setValue={setBio}
@@ -93,7 +130,7 @@ const PersonalProfile = () => {
                 options={studyTechniques}
             />
 
-            <button>Submit</button>
+            <button onClick={handleSubmit}>Submit</button>
         </div>
         </div>
     );

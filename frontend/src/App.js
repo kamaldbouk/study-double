@@ -13,6 +13,7 @@ import Home from "./Home/Home";
 import Explore from "./Explore/Explore";
 import PublicProfile from "./Profile/PublicProfile";
 import PersonalProfile from "./Profile/PersonalProfile";
+import PersonalProfile2 from "./Profile/PersonalProfile2";
 
 import "./App.css";
 
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/edit-profile">
             <PersonalProfile />
+          </Route>
+          <Route exact path="/my-profile">
+            <PersonalProfile2 />
           </Route>
         </Switch>
       </Router>
