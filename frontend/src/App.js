@@ -12,6 +12,7 @@ import AlertNotification from "./shared/components/AlertNotification";
 import Home from "./Home/Home";
 import Explore from "./Explore/Explore";
 import PublicProfile from "./Profile/PublicProfile";
+import PersonalProfile from "./Profile/PersonalProfile";
 
 import "./App.css";
 
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/profile/:id"> 
             <PublicProfile />
+          </Route>
+          <Route exact path="/edit-profile">
+            <PersonalProfile />
           </Route>
         </Switch>
       </Router>
