@@ -681,3 +681,105 @@ code {
     width: 100%;
   }
 }
+
+/* Explore Page */
+
+
+/* Explore Page */
+.explore-content {
+  margin-top: 150px;
+  padding: 20px;
+  text-align: center;
+}
+
+.filter {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #5F8575;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.user-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.user-card {
+  width: 250px;
+  background: #F1F0E9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+  transform: scale(1.05);
+}
+
+.user-card h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.user-card p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.addFriendButton2 {
+  background-color: #4CAF50;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.addFriendButton2:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: #777;
+  margin-top: 20px;
+}
+
+.snackbar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;  /* Green background */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+

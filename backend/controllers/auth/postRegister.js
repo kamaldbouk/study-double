@@ -30,6 +30,7 @@ const postRegister = async (req, res) => {
     // create default user profile
     await UserProfile.create({
       userId: user._id,
+      mail: mail,
       name: username,
       age: null,
       dateOfBirth: null,
