@@ -1,33 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { getUserProfile } from "../api";
+import { getUserProfile, sendFriendInvitation } from "../api";
 import one from '../shared/images/one.png';
 import Avatar from '../shared/components/Avatar';
 import StarIcon from '@mui/icons-material/Star';
-import load from '../shared/images/load.gif'
+import load from '../shared/images/load.gif';
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const PublicProfile = () => {
   const { id } = useParams();
   const history = useHistory();
-  const [profile, setProfile] = useState(null); 
-  const [loading, setLoading] = useState(true); 
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isFriend, setIsFriend] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loadingMail, setLoadingMail] = useState(null); 
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleMoveToDashboard = () => history.push("/dashboard");
   const handleMoveToExplore = () => history.push("/explore");
 
   useEffect(() => {
     const fetchProfile = async () => {
+      const userDetails = JSON.parse(localStorage.getItem("user"));
+      const myId = userDetails._id;
+
       const result = await getUserProfile(id);
       if (!result.error) {
         setProfile(result);
       }
-      setLoading(false); 
+      setLoading(false);
     };
     fetchProfile();
-  }, [id]); 
+  }, [id]);
 
-  if (loading) return <img src={load} alt="Loading..." className="loading"/>;
+  const handleAddFriend = async () => {
+    setLoadingMail(true); 
+    try {
+      await sendFriendInvitation({ targetMailAddress: profile.mail });
 
+      setSuccessMessage(`Friend invitation sent to ${profile.name}`);
+      setLoadingMail(false);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Failed to send friend invitation.");
+      setLoadingMail(false);
+    }
+  };
+
+  if (loading) return <img src={load} alt="Loading..." className="loading" />;
   if (!profile) return <div>Profile not found.</div>;
 
   return (
@@ -45,18 +68,20 @@ const PublicProfile = () => {
       </nav>
 
       <div className="profileWrapper">
-        
         <div className="leftSide">
           <div className="userInfo">
             <Avatar username={profile.name} large={true} className="avatar-class" />
             <h3>{profile.name}</h3>
           </div>
-          <StarIcon className="star"/>
-          {/* <StarIcon /> <StarIcon /> <StarIcon /> */}
-          {/* <p>{profile.mail}</p> */}
-          <p>Biography goes here...{profile.biography}</p>
-          <button className="addFriendButton">Add StudyDouble</button>
-          <button className="unfriendButton">Remove StudyDouble</button>
+          <StarIcon className="star" />
+          <p>{profile.biography}</p>
+          <button 
+            className="addFriendButton" 
+            onClick={handleAddFriend}
+            disabled={loadingMail}
+          >
+            {loadingMail ? "Sending..." : "Add StudyDouble"}
+          </button>
         </div>
 
         <div className="middleBox">
@@ -71,8 +96,27 @@ const PublicProfile = () => {
             <p><strong>Average Session Length:</strong> {profile.averageSessionLength} hours</p>
           </div>
         </div>
-
       </div>
+
+      <Snackbar
+        open={Boolean(successMessage)}
+        autoHideDuration={3000}
+        onClose={() => setSuccessMessage("")}
+      >
+        <Alert onClose={() => setSuccessMessage("")} severity="success">
+          {successMessage}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={Boolean(errorMessage)}
+        autoHideDuration={3000}
+        onClose={() => setErrorMessage("")}
+      >
+        <Alert onClose={() => setErrorMessage("")} severity="error">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
