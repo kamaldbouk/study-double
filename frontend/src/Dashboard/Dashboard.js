@@ -9,7 +9,6 @@ import { connect } from "react-redux";
 import { getActions } from "../store/actions/authActions";
 import { connectWithSocketServer } from "../realtimeCommunication/socketConnection";
 import Room from "./Room/Room";
-import TechniquesWidget from "./SideBar/TechniquesWidget";
 
 const Wrapper = styled("div")({
   width: "100%",
@@ -32,7 +31,7 @@ const Dashboard = ({ setUserDetails, isUserInRoom }) => {
       setUserDetails(JSON.parse(userDetails));
       connectWithSocketServer(JSON.parse(userDetails));
     }
-  }, [setUserDetails]); //added setUserDetails in the dependency array here
+  }, [setUserDetails]);
 
   return (
     <Wrapper>
@@ -41,7 +40,6 @@ const Dashboard = ({ setUserDetails, isUserInRoom }) => {
       <Messenger />
       <AppBar />
       { isUserInRoom && <Room /> }
-      {/* { <TechniquesWidget />} */}
     </Wrapper>
   );
 };

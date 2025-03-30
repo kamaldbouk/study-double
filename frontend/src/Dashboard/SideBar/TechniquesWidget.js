@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TimerIcon from "@mui/icons-material/Timer";
-import CloseIcon from "@mui/icons-material/Close"; // Added Close Icon
+import CloseIcon from "@mui/icons-material/Close"; 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton"; // Added for close button
+import IconButton from "@mui/material/IconButton"; 
 
 const TechniquesWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +60,7 @@ const TechniquesWidget = () => {
         }
     };
 
-    // Handle custom time input
+    
     const handleCustomTimeChange = (e) => {
         const value = e.target.value;
         const timeInSeconds = parseInt(value) * 60;
@@ -70,7 +70,7 @@ const TechniquesWidget = () => {
         }
     };
 
-    // Close the box
+    
     const handleClose = () => {
         setIsOpen(false);
     };
@@ -111,7 +111,7 @@ const TechniquesWidget = () => {
                         borderRadius: "8px",
                     }}
                 >
-                    {/* Close Button */}
+    
                     <IconButton
                         onClick={handleClose}
                         sx={{
