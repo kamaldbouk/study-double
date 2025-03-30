@@ -4,7 +4,6 @@ import * as roomHandler from '../../realtimeCommunication/roomHandler';
 const CreateRoomButton = ({isUserInRoom}) => {
 
     const createNewRoomHandler = () => {
-        //create a room and sending info to the server ab it
         roomHandler.createNewRoom();
     }
     return ( 

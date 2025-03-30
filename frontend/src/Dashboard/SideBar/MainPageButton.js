@@ -1,8 +1,16 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import GroupsIcon from "@mui/icons-material/Groups";
+import HomeIcon from '@mui/icons-material/Home';
+import { useHistory } from "react-router-dom";
 
 const MainPageButton = () => {
+  const history = useHistory();
+
+  const handleMoveToHome = () => {
+    history.push("/home");
+
+  }
+
   return (
     <Button
       style={{
@@ -17,7 +25,7 @@ const MainPageButton = () => {
         backgroundColor: "#5F8575",
       }}
     >
-      <GroupsIcon />
+      <HomeIcon onClick={handleMoveToHome} />
     </Button>
   );
 };
