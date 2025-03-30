@@ -9,6 +9,8 @@ import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton"; 
+import alarm from "../../shared/images/alarm.wav";
+import confetti from "../../shared/images/confetti.gif";
 
 const TechniquesWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,12 +18,21 @@ const TechniquesWidget = () => {
     const [time, setTime] = useState(0); 
     const [isRunning, setIsRunning] = useState(false); 
     const [intervalId, setIntervalId] = useState(null);
-    const [customTime, setCustomTime] = useState("");
+    const [customTime, setCustomTime] = useState(""); 
+    const [customBreakTime, setCustomBreakTime] = useState("");
+    const [isBreak, setIsBreak] = useState(false); 
+    const [showConfetti, setShowConfetti] = useState(false); 
 
     const techniqueTimes = {
-        "Pomodoro": 25 * 60,  
-        "Feynman Technique": 15 * 60, 
-        "Spaced Repetition": 10 * 60  
+        "Pomodoro Technique": 25 * 60,  
+        "112-26 Technique": 112 * 60, 
+        "Blurting Technique": 10 * 60  
+    };
+
+    const breakTimes = {
+        "Pomodoro Technique": 5 * 60,   
+        "112-26 Technique": 26 * 60,    
+        "Blurting Technique": 5 * 60    
     };
 
     const toggleBox = () => {
@@ -35,10 +46,13 @@ const TechniquesWidget = () => {
     };
 
     useEffect(() => {
-        if (selectedTechnique) {
+        if (selectedTechnique && selectedTechnique !== "Custom") {
             setTime(techniqueTimes[selectedTechnique]);
+            setCustomBreakTime(breakTimes[selectedTechnique] / 60);
+        } else if (selectedTechnique === "Custom") {
+            setTime(customTime * 60); 
         }
-    }, [selectedTechnique]);
+    }, [selectedTechnique, customTime]);
 
     const toggleTimer = () => {
         if (isRunning) {
@@ -48,8 +62,18 @@ const TechniquesWidget = () => {
             const id = setInterval(() => {
                 setTime((prevTime) => {
                     if (prevTime === 0) {
+                        if (isBreak) {
+                            setIsBreak(false);
+                            setTime(customTime * 60 || techniqueTimes[selectedTechnique]); 
+                        } else {
+                            setIsBreak(true);
+                            setTime(customBreakTime * 60 || 5 * 60);
+                            setShowConfetti(true); 
+                            setTimeout(() => setShowConfetti(false), 2000);
+                        }
                         clearInterval(id);
                         setIsRunning(false);
+                        playSound();
                         return prevTime;
                     }
                     return prevTime - 1;
@@ -60,23 +84,47 @@ const TechniquesWidget = () => {
         }
     };
 
-    
+    const playSound = () => {
+        const sound = new Audio(alarm);
+        sound.play();
+    };
+
     const handleCustomTimeChange = (e) => {
         const value = e.target.value;
-        const timeInSeconds = parseInt(value) * 60;
-        if (!isNaN(timeInSeconds) && timeInSeconds >= 0) {
-            setCustomTime(value);
-            setTime(timeInSeconds);
+        if (!isNaN(value) && value >= 0) {
+            setCustomTime(value); 
         }
     };
 
-    
+    const handleCustomBreakTimeChange = (e) => {
+        const value = e.target.value;
+        if (!isNaN(value) && value >= 0) {
+            setCustomBreakTime(value);
+        }
+    };
+
     const handleClose = () => {
         setIsOpen(false);
     };
 
     return (
         <>
+            {showConfetti && (
+                <img
+                    src={confetti}
+                    alt="Confetti"
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "100%", 
+                        height: "auto",
+                        zIndex: 9999, 
+                    }}
+                />
+            )}
+
             <Button
                 onClick={toggleBox}
                 style={{
@@ -90,7 +138,6 @@ const TechniquesWidget = () => {
                     color: "white",
                     backgroundColor: "#5F8575",
                     position: "relative",
-                    zIndex: 10,
                 }}
             >
                 <TimerIcon />
@@ -111,7 +158,6 @@ const TechniquesWidget = () => {
                         borderRadius: "8px",
                     }}
                 >
-    
                     <IconButton
                         onClick={handleClose}
                         sx={{
@@ -132,6 +178,10 @@ const TechniquesWidget = () => {
                         {formatTime(time)}
                     </Typography>
 
+                    <Typography variant="body1" sx={{ textAlign: "center", marginBottom: "10px", color: isBreak ? "red" : "green" }}>
+                        {isBreak ? "Break Time" : "Study Time"}
+                    </Typography>
+
                     <Select
                         fullWidth
                         value={selectedTechnique}
@@ -139,19 +189,33 @@ const TechniquesWidget = () => {
                         displayEmpty
                     >
                         <MenuItem value="" disabled>Select a Technique</MenuItem>
-                        <MenuItem value="Pomodoro">Pomodoro</MenuItem>
-                        <MenuItem value="Feynman Technique">Feynman Technique</MenuItem>
-                        <MenuItem value="Spaced Repetition">Spaced Repetition</MenuItem>
+                        <MenuItem value="Pomodoro Technique">Pomodoro Technique</MenuItem>
+                        <MenuItem value="112-26 Technique">112-26 Technique</MenuItem>
+                        <MenuItem value="Blurting Technique">Blurting Technique</MenuItem>
+                        <MenuItem value="Custom">Custom</MenuItem>
                     </Select>
 
-                    <TextField
-                        label="Custom Time (minutes)"
-                        value={customTime}
-                        onChange={handleCustomTimeChange}
-                        type="number"
-                        fullWidth
-                        sx={{ marginTop: "10px" }}
-                    />
+                    {selectedTechnique === "Custom" && (
+                        <>
+                            <TextField
+                                label="Custom Time (minutes)"
+                                value={customTime}
+                                onChange={handleCustomTimeChange}
+                                type="number"
+                                fullWidth
+                                sx={{ marginTop: "10px" }}
+                            />
+
+                            <TextField
+                                label="Custom Break Time (minutes)"
+                                value={customBreakTime}
+                                onChange={handleCustomBreakTimeChange}
+                                type="number"
+                                fullWidth
+                                sx={{ marginTop: "10px" }}
+                            />
+                        </>
+                    )}
 
                     <Button
                         onClick={toggleTimer}
