@@ -13,8 +13,6 @@ const PublicProfile = () => {
   const history = useHistory();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isFriend, setIsFriend] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState(null);
   const [loadingMail, setLoadingMail] = useState(null); 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -24,8 +22,6 @@ const PublicProfile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const userDetails = JSON.parse(localStorage.getItem("user"));
-      const myId = userDetails._id;
 
       const result = await getUserProfile(id);
       if (!result.error) {

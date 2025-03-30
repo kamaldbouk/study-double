@@ -2,7 +2,6 @@ import store from "../store/store"
 import { setOpenRoom, setRoomDetails, setActiveRooms, setLocalStream, setRemoteStreams, setScreenSharingStream, setIsUserJoinedOnlyWithAudio } from "../store/actions/roomActions";
 import * as socketConnection from './socketConnection';
 import * as webRTCHandler from './webRTCHandler';
-import axios from "axios";
 
 // export const createNewRoom = () => {
 //   const successCallBackFunc = () => {
