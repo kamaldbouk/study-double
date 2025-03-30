@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ActiveRoomButton from "./ActiveRoomButton";
 import TechniquesWidget from "./TechniquesWidget";
 import ChatbotWidget from "./ChatbotWidget";
+import GoalsWidget from "./GoalsWidget";
 
 const MainContainer = styled("div")({
   width: "72px",
@@ -42,6 +43,7 @@ const SideBar = ({ activeRooms, isUserInRoom }) => {
       ))}
       <TechniquesWidget />
       <ChatbotWidget />
+      <GoalsWidget />
     </MainContainer>
   );
 };
