@@ -70,7 +70,6 @@ router.get('/checkInvitation/:senderId/:receiverId', async (req, res) => {
     const { senderId, receiverId } = req.params;
   
     try {
-      // Check if an invitation exists in either direction (sent by sender or receiver)
       const invitation = await FriendInvitation.findOne({
         senderId,
         receiverId,
