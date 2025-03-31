@@ -416,7 +416,35 @@ code {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.unfriendButton {
+.pendingButton {
+  background-color: #bab7b7;
+  color: white;
+  width: 200px;
+  height: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 0;
+  cursor: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.pendingButton:hover {
+  background-color: #8c918d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pendingButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.removeFriendButton {
   background-color: #f44336;
   color: white;
   width: 200px;
@@ -433,13 +461,13 @@ code {
   justify-content: center;
 }
 
-.unfriendButton:hover {
+.removeFriendButton:hover {
   background-color: #e53935;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.unfriendButton:active {
+.removeFriendButton:active {
   transform: translateY(1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

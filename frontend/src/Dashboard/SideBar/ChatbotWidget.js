@@ -17,10 +17,10 @@ const ChatbotWidget = () => {
 
     try {
       const response = await axios.post(
-        "https://api-inference.huggingface.co/models/OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5",
+        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct",
         { inputs: input }, 
         {
-          headers: { Authorization: `Bearer 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` },
+          headers: { Authorization: `Bearer YOUR_HUGGINGFACE_API_KEY` },
         }
       );
 
@@ -35,37 +35,38 @@ const ChatbotWidget = () => {
   };
 
   return (
-    <div style={{ position: "fixed", bottom: "20px", left: "20px" }}>
+    <div style={{ position: "fixed", bottom: "20px", left: "10px" }}>
       <Button
         style={{
           width: "48px",
           height: "48px",
-          borderRadius: "16px",
+          borderRadius: "10px",
           backgroundColor: "#5F8575",
           color: "white",
+          minWidth: "unset",
         }}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <SmartToyIcon />
+        <SmartToyIcon fontSize="small" />
       </Button>
 
       {isOpen && (
         <Box
           sx={{
             position: "absolute",
-            bottom: "60px",
+            bottom: "50px",
             left: "0",
-            width: "300px",
-            height: "400px",
+            width: "220px",
+            height: "360px",
             backgroundColor: "white",
-            borderRadius: "12px",
-            boxShadow: 3,
+            borderRadius: "10px",
+            boxShadow: 2,
             display: "flex",
             flexDirection: "column",
-            padding: "10px",
+            padding: "8px",
           }}
         >
-          <div style={{ flexGrow: 1, overflowY: "auto", maxHeight: "340px" }}>
+          <div style={{ flexGrow: 1, overflowY: "auto", maxHeight: "320px" }}>
             {messages.map((msg, index) => (
               <p key={index} style={{ textAlign: msg.role === "user" ? "right" : "left" }}>
                 <strong>{msg.role === "user" ? "You" : "Bot"}:</strong> {msg.content}

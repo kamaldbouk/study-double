@@ -6,9 +6,8 @@ import { useHistory } from "react-router-dom";
 const MainPageButton = () => {
   const history = useHistory();
 
-  const handleMoveToHome = () => {
-    history.push("/home");
-
+  const handleMoveToExplore = () => {
+    history.push("/explore");
   }
 
   return (
@@ -25,7 +24,7 @@ const MainPageButton = () => {
         backgroundColor: "#5F8575",
       }}
     >
-      <HomeIcon onClick={handleMoveToHome} />
+      <HomeIcon onClick={handleMoveToExplore} />
     </Button>
   );
 };

@@ -19,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/friend-invitation", friendInvitationRoutes);
 app.use("/api/profile", require("./routes/profileRoutes"));
 app.use("/api/session", require("./routes/sessionRoutes"));
+app.use("/api/friends", require("./routes/friendsRoutes"));
 
 const server = http.createServer(app);
 socketServer.registerSocketServer(server);

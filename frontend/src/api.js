@@ -136,3 +136,40 @@ const checkResponseCode = (exception) => {
     (responseCode === 401 || responseCode === 403) && logout();
   }
 };
+
+
+export const checkFriendStatus = async (userId, friendId) => {
+  try {
+    const response = await apiClient.get(`/friends/status/${userId}/${friendId}`);
+    return response.data;
+  } catch (exception) {
+    return { error: true, exception };
+  }
+};
+
+export const addFriend = async (userId, friendId) => {
+  try {
+    const response = await apiClient.post("/friends/add", { userId, friendId });
+    return response.data;
+  } catch (exception) {
+    return { error: true, exception };
+  }
+};
+
+
+export const removeFriend = async (userId, friendId) => {
+  try {
+    return await apiClient.post("/friends/remove", { userId, friendId });
+  } catch (exception) {
+    return { error: true, exception };
+  }
+};
+
+// export const checkFriendInvitation = async (senderId, receiverId) => {
+//   try {
+//     const response = await apiClient.get(`/friend-invitation/check/${senderId}/${receiverId}`);
+//     return response.data;
+//   } catch (exception) {
+//     return { error: true, exception };
+//   }
+// };

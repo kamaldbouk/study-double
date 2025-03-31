@@ -30,7 +30,7 @@ const Home = () => {
                 <div className="textContainer">
                 <span className="typing-text">Are you ready to start Study Doubling?</span>
                 <br />
-                <div class="button_slide slide_right">Learn More!</div>
+                <div className="button_slide slide_right">Learn More!</div>
                 </div>
                 <img
                     src={hero}
@@ -39,8 +39,8 @@ const Home = () => {
                 />
             </section>
 
-            <section class="secondSection">
-                <div class="side default-side">
+            <section className="secondSection">
+                <div className="side default-side">
                     <h1>Study Alone?</h1>
                     <ul>
                         Studying alone can be
@@ -51,7 +51,7 @@ const Home = () => {
                     </ul>
                 </div>
                 
-                <div class="side hover-side">
+                <div className="side hover-side">
                     <h1>StudyDouble!</h1>
                     <p>StudyDouble uses the body doubling technique to boost focus and accountability. By matching you with compatible partners, we create a supportive environment for productive and structured study sessions</p>
                 </div>
