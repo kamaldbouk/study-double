@@ -14,8 +14,7 @@ import Explore from "./Explore/Explore";
 import PublicProfile from "./Profile/PublicProfile";
 import PersonalProfile from "./Profile/PersonalProfile";
 import PersonalProfile2 from "./Profile/PersonalProfile2";
-
-import "./App.css";
+import PersonalityTest from "./Profile/PersonalityTest";
 
 function App() {
   return (
@@ -48,6 +47,9 @@ function App() {
           </Route>
           <Route exact path="/my-profile">
             <PersonalProfile2 />
+          </Route>
+          <Route exact path='/personality-test'>
+            <PersonalityTest />
           </Route>
         </Switch>
       </Router>

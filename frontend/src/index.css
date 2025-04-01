@@ -808,3 +808,96 @@ code {
   }
 }
 
+/* Personality Test */
+.bg-container {
+  background-color: #4a6f65;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.test-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.test-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.question-container {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.question-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.radio-label {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.radio-label:hover {
+  background: #d0d0d0;
+}
+
+.radio-label:active {
+  transform: scale(0.95);
+}
+
+.radio-label.selected {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.radio-input {
+  display: none;
+}
+
+.submit-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.results-container {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}

@@ -54,6 +54,37 @@ router.patch("/:id", auth, async (req, res) => {
   }
 });
 
+router.post("/:id/personality-test", auth, async (req, res) => {
+  const { id } = req.params;
+  const { extraversion, agreeableness, conscientiousness, neuroticism, openness } = req.body;
+  console.log("Received Personality Test Data:", req.body); 
+  try {
+    const profile = await UserProfile.findOneAndUpdate(
+      { userId: id },
+      {
+        $set: {
+          "personalityTestResults.extraversion": extraversion,
+          "personalityTestResults.agreeableness": agreeableness,
+          "personalityTestResults.conscientiousness": conscientiousness,
+          "personalityTestResults.neuroticism": neuroticism,
+          "personalityTestResults.openness": openness,
+        },
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.status(200).json({ message: "Personality test results saved!", profile });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 // router.get("/online", async (req, res) => {
 //   try {
 //     const onlineUsers = await OnlineUser.find();

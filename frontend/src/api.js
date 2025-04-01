@@ -156,6 +156,21 @@ export const addFriend = async (userId, friendId) => {
   }
 };
 
+export const savePersonalityTestResults = async (userId, testResults) => {
+  try {
+    const response = await apiClient.post(`/profile/${userId}/personality-test`, { 
+      extraversion: testResults.Extraversion,
+      agreeableness: testResults.Agreeableness,
+      conscientiousness: testResults.Conscientiousness,
+      neuroticism: testResults.Neuroticism,
+      openness: testResults.Openness
+    });
+    return response.data;
+  } catch (exception) {
+    console.error("Error saving test results:", exception);
+    return { error: true, exception };
+  }
+};
 
 export const removeFriend = async (userId, friendId) => {
   try {
@@ -164,12 +179,3 @@ export const removeFriend = async (userId, friendId) => {
     return { error: true, exception };
   }
 };
-
-// export const checkFriendInvitation = async (senderId, receiverId) => {
-//   try {
-//     const response = await apiClient.get(`/friend-invitation/check/${senderId}/${receiverId}`);
-//     return response.data;
-//   } catch (exception) {
-//     return { error: true, exception };
-//   }
-// };

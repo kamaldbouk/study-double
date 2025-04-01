@@ -38,7 +38,13 @@ const postRegister = async (req, res) => {
       major: "",
       communicationStyles: "",
       biography: "",
-      personalityTestResults: "",
+      personalityTestResults: {
+        extraversion: 0,
+        agreeableness: 0,
+        conscientiousness: 0,
+        neuroticism: 0,
+        openness: 0,
+      },
       preferredStudyTechnique: "",
       averageSessionLength: null,
     });
