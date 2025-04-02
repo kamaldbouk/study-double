@@ -72,7 +72,7 @@ const PersonalProfile = () => {
                 setError(response.error);
             } else {
                 setProfile(response.data); 
-                history.push("/my-profile");
+                history.push("/personality-test");
             }
         } catch (error) {
             setError("Failed to update profile.");

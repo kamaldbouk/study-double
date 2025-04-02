@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { getUserProfile, sendFriendInvitation, checkFriendStatus, removeFriend } from "../api";
+import { getUserProfile, sendFriendInvitation, checkFriendStatus, removeFriend, leaveReview } from "../api";
 import one from '../shared/images/one.png';
 import Avatar from '../shared/components/Avatar';
 import StarIcon from '@mui/icons-material/Star';
 import load from '../shared/images/load.gif';
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Rating from "@mui/material/Rating";
 
 const PublicProfile = () => {
   const { id } = useParams(); 
@@ -18,7 +22,10 @@ const PublicProfile = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [pendingRequest, setPendingRequest] = useState(false);
-
+  const [openReviewModal, setOpenReviewModal] = useState(false);
+  const [reviewText, setReviewText] = useState("");
+  const [rating, setRating] = useState(0);
+  
   const userDetails = JSON.parse(localStorage.getItem("user"));
   const userId = userDetails._id;
 
@@ -85,6 +92,30 @@ const PublicProfile = () => {
     }
   };
 
+  const handleLeaveReview = async () => {
+    if (rating === 0 || reviewText.trim() === "") {
+      setErrorMessage("Please provide a rating and description.");
+      return;
+    }
+  
+    try {
+      const response = await leaveReview(userId, id, { rating, description: reviewText });
+  
+      if (!response.error) {
+        setSuccessMessage("Review submitted successfully!");
+        setProfile((prevProfile) => ({
+          ...prevProfile,
+          reviews: [...prevProfile.reviews, response.review],
+        }));
+        setOpenReviewModal(false);
+      } else {
+        setErrorMessage(response.message || "Failed to submit review.");
+      }
+    } catch (error) {
+      setErrorMessage("Error submitting review.");
+    }
+  };
+
   if (loading) return <img src={load} alt="Loading..." className="loading" />;
   if (!profile) return <div>Profile not found.</div>;
 
@@ -116,13 +147,14 @@ const PublicProfile = () => {
               Pending
             </button>
           ) : isFriend ? (
-            <button
-              className="removeFriendButton"
-              onClick={handleRemoveFriend}
-              disabled={loadingMail}
-            >
-              {loadingMail ? "Removing..." : "Remove Friend"}
-            </button>
+            <>
+              <button className="leaveReviewButton" onClick={() => setOpenReviewModal(true)}>
+                Leave Review
+              </button>
+              <button className="removeFriendButton" onClick={handleRemoveFriend} disabled={loadingMail}>
+                {loadingMail ? "Removing..." : "Remove Friend"}
+              </button>
+            </>
           ) : (
             <button
               className="addFriendButton"
@@ -168,6 +200,40 @@ const PublicProfile = () => {
           {errorMessage}
         </Alert>
       </Snackbar>
+
+      <Modal open={openReviewModal} onClose={() => setOpenReviewModal(false)}>
+        <Box sx={{ width: 400, bgcolor: "white", p: 3, borderRadius: 2, mx: "auto", mt: 5 }} className="modalContent">
+          <h3>Leave a Review</h3>
+          <Rating value={rating} onChange={(event, newValue) => setRating(newValue)} />
+          <TextField
+            fullWidth
+            multiline
+            rows={3}
+            label="Review"
+            variant="outlined"
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+            sx={{ mt: 2 }}
+          />
+          <button className="submitReviewButton" onClick={handleLeaveReview}>Submit</button>
+        </Box>
+      </Modal>
+
+      <div className="reviewsSection">
+        <h2>User Reviews</h2>
+        {profile.reviews && profile.reviews.length > 0 ? (
+          profile.reviews.map((review, index) => (
+            <div key={index} className="review">
+              <p><strong>Rating:</strong> {review.rating} ⭐</p>
+              <p>{review.description}</p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews yet.</p>
+        )}
+      </div>
+
+
     </div>
   );
 };

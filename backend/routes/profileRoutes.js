@@ -57,7 +57,6 @@ router.patch("/:id", auth, async (req, res) => {
 router.post("/:id/personality-test", auth, async (req, res) => {
   const { id } = req.params;
   const { extraversion, agreeableness, conscientiousness, neuroticism, openness } = req.body;
-  console.log("Received Personality Test Data:", req.body); 
   try {
     const profile = await UserProfile.findOneAndUpdate(
       { userId: id },
@@ -84,6 +83,45 @@ router.post("/:id/personality-test", auth, async (req, res) => {
   }
 });
 
+router.post("/:id/review", async (req, res) => {
+  const { id } = req.params; 
+  const { senderId, rating, description } = req.body; 
+
+  console.log("receiver (profile being reviewed):", id);
+  console.log("sender (reviewer):", senderId);
+
+  try {
+    if (!senderId || !rating || !description) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+
+    const existingReview = await UserProfile.findOne({
+      userId: id,
+      "reviews.senderId": senderId,
+    });
+
+    if (existingReview) {
+      return res.status(400).json({ message: "You have already left a review." });
+    }
+
+    const newReview = { senderId, rating, description };
+
+    const updatedProfile = await UserProfile.findOneAndUpdate(
+      { userId: id },
+      { $push: { reviews: newReview } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.status(201).json({ message: "Review submitted successfully!", review: newReview });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // router.get("/online", async (req, res) => {
 //   try {

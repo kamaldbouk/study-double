@@ -28,7 +28,7 @@ const PersonalityTest = () => {
 
   const handleFinishTest = () => {
     saveResults();
-    history.push('/dashboard'); 
+    history.push('/my-profile'); 
   }
 
   const saveResults = async () => {

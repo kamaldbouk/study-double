@@ -179,3 +179,18 @@ export const removeFriend = async (userId, friendId) => {
     return { error: true, exception };
   }
 };
+
+export const leaveReview = async (userId, profileId, reviewData) => {
+  try {
+    const response = await apiClient.post(`/profile/${profileId}/review`, {
+      senderId: userId,
+      rating: reviewData.rating,
+      description: reviewData.description,
+    });
+
+    return response.data;
+  } catch (exception) {
+    console.error("Error leaving review:", exception);
+    return { error: true, exception };
+  }
+};

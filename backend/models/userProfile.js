@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userProfileSchema = new mongoose.Schema({
+const reviewSchema = new Schema({
+  senderId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  rating: { type: Number, required: true, min: 1, max: 5 },
+  description: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+
+const userProfileSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User", unique: true, required: true },
   mail: { type: String, required: true },
   name: { type: String, required: true },
@@ -13,7 +21,7 @@ const userProfileSchema = new mongoose.Schema({
   biography: { type: String },
   preferredStudyTechnique: { type: String },
   averageSessionLength: { type: Number },
-  
+
   personalityTestResults: {
     extraversion: { type: Number, default: 0 },
     agreeableness: { type: Number, default: 0 },
@@ -21,6 +29,8 @@ const userProfileSchema = new mongoose.Schema({
     neuroticism: { type: Number, default: 0 },
     openness: { type: Number, default: 0 },
   },
+
+  reviews: [reviewSchema] 
 });
 
 module.exports = mongoose.model("UserProfile", userProfileSchema);
