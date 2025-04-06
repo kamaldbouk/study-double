@@ -18,8 +18,10 @@ const userProfileSchema = new Schema({
   major: { type: String },
   communicationStyles: { type: String },
   biography: { type: String },
+
   preferredStudyTechnique: { type: String },
-  averageSessionLength: { type: Number },
+  preferredStudyLength: { type: Number },
+  preferredBreakLength:  { type: Number },
 
   personalityTestResults: {
     extraversion: { type: Number, default: 0 },

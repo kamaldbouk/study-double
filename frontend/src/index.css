@@ -637,6 +637,41 @@ code {
   font-weight: bold;
 }
 
+.session-pref {
+  margin-top: 20px;
+}
+
+.preference-box {
+  margin-bottom: 20px;
+}
+
+.preference-box p {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.box {
+  width: 40%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f9f9f9;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.box p {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0; 
+}
+
+.box p:last-child {
+  font-size: 1.6em;
+  color: gray;
+  margin-top: -10px;
+}
+
 
 /* Personal Profile */
 .bg {

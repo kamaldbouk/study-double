@@ -15,7 +15,9 @@ const EditProfile = () => {
     const [country, setCountry] = useState("");
     const [major, setMajor] = useState("");
     const [error, setError] = useState("");
-
+    const [preferredStudyLength, setPreferredStudyLength] = useState(""); 
+    const [preferredBreakLength, setPreferredBreakLength] = useState("");
+    
     const history = useHistory();
 
     useEffect(() => {
@@ -56,6 +58,15 @@ const EditProfile = () => {
             return;
         }
 
+        const today = new Date();
+        const birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+    
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
         const updatedProfile = {
             biography: bio,
             dob: dob,
@@ -63,6 +74,9 @@ const EditProfile = () => {
             major: major,
             communicationStyles: communication,
             preferredStudyTechnique: studyTechnique,
+            preferredStudyLength: preferredStudyLength,  
+            preferredBreakLength: preferredBreakLength, 
+            age,
         };
 
         try {
@@ -186,6 +200,20 @@ const EditProfile = () => {
                 setValue={setStudyTechnique}
                 label="Preferred Study Technique"
                 options={studyTechniques}
+            />
+            <InputWithLabel
+                value={preferredStudyLength}
+                setValue={setPreferredStudyLength}
+                label="Preferred Study Length (minutes)"
+                type="number"
+                placeholder="Enter your preferred study length in minutes"
+            />
+            <InputWithLabel
+                value={preferredBreakLength}
+                setValue={setPreferredBreakLength}
+                label="Preferred Break Length (minutes)"
+                type="number"
+                placeholder="Enter your preferred break length in minutes"
             />
 
             <button onClick={handleSubmit}>Submit</button>

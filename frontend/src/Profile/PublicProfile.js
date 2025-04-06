@@ -26,8 +26,8 @@ const PublicProfile = () => {
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
-  const [isSessionPref, setIsSessionPref] = useState(false); // State for session preferences toggle
-  const [activeButton, setActiveButton] = useState("profile"); // Active button for toggling between sections
+  const [isSessionPref, setIsSessionPref] = useState(false);
+  const [activeButton, setActiveButton] = useState("profile");
 
   const userDetails = JSON.parse(localStorage.getItem("user"));
   const userId = userDetails._id;
@@ -181,7 +181,29 @@ const PublicProfile = () => {
           {isSessionPref ? (
             <div className="session-pref">
               <h2>Session Preferences</h2>
-              <p>Session Preferences content here.</p>
+              
+              <div className="preference-box">
+                <p><strong>Preferred Study Technique:</strong></p>
+                <div className="box">
+                  <p>{profile.preferredStudyTechnique}</p>
+                </div>
+              </div>
+              
+              <div className="preference-box">
+                <p><strong>Preferred Study Length:</strong></p>
+                <div className="box">
+                  <p>{profile.preferredStudyLength}</p>
+                  <p>minutes</p>
+                </div>
+              </div>
+            
+              <div className="preference-box">
+                <p><strong>Preferred Break Length:</strong></p>
+                <div className="box">
+                  <p>{profile.preferredBreakLength}</p>
+                  <p>minutes</p>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="profileDetails">

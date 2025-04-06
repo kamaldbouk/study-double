@@ -94,17 +94,14 @@ import { useHistory } from "react-router-dom";
 import { getUserProfile } from "../api";
 import one from '../shared/images/one.png';
 import Avatar from '../shared/components/Avatar';
-import StarIcon from '@mui/icons-material/Star';
 import load from '../shared/images/load.gif';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import { Switch } from '@mui/material';
 
 const PersonalProfile2 = () => {
   const history = useHistory();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isSessionPref, setIsSessionPref] = useState(false); // Toggle state for session preferences
+  const [isSessionPref, setIsSessionPref] = useState(false); 
   const [activeButton, setActiveButton] = useState("profile");
 
   const handleMoveToDashboard = () => history.push("/dashboard");
@@ -131,7 +128,6 @@ const PersonalProfile2 = () => {
 
   if (!profile) return <div>Profile not found.</div>;
 
-  // Toggle session preference
   const handleToggleChange = (event) => {
     setIsSessionPref(event.target.checked);
     setActiveButton(event.target.checked ? "session" : "profile");
@@ -172,9 +168,32 @@ const PersonalProfile2 = () => {
         <div className="middleBox">
           {isSessionPref ? (
             <div className="session-pref">
-              <h2>Session Preferences</h2>
-              <p>Session Preferences content here.</p>
+            <h2>Session Preferences</h2>
+            
+            <div className="preference-box">
+              <p><strong>Preferred Study Technique:</strong></p>
+              <div className="box">
+                <p>{profile.preferredStudyTechnique}</p>
+              </div>
             </div>
+            
+            <div className="preference-box">
+              <p><strong>Preferred Study Length:</strong></p>
+              <div className="box">
+                <p>{profile.preferredStudyLength}</p>
+                <p>minutes</p>
+              </div>
+            </div>
+          
+            <div className="preference-box">
+              <p><strong>Preferred Break Length:</strong></p>
+              <div className="box">
+                <p>{profile.preferredBreakLength}</p>
+                <p>minutes</p>
+              </div>
+            </div>
+          </div>
+          
           ) : (
             <div className="profileDetails">
               <h2>Profile Information</h2>

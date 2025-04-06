@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import loadingGif from '../shared/images/load.gif';
-// import Avatar from '../shared/components/Avatar';
 import InputWithLabel from "../shared/components/InputWithLabel";
 import SelectWithLabel from "../shared/components/SelectWithLabel";
 import { getUserProfile, updateUserProfile } from "../api";
@@ -15,6 +14,8 @@ const PersonalProfile = () => {
     const [studyTechnique, setStudyTechnique] = useState("");
     const [country, setCountry] = useState("");
     const [major, setMajor] = useState("");
+    const [preferredStudyLength, setPreferredStudyLength] = useState(""); 
+    const [preferredBreakLength, setPreferredBreakLength] = useState(""); 
     const [error, setError] = useState("");
     const [formError, setFormError] = useState("");
 
@@ -52,7 +53,7 @@ const PersonalProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        if (!bio || !dob || !communication || !studyTechnique || !country || !major) {
+        if (!bio || !dob || !communication || !studyTechnique || !country || !major || !preferredStudyLength || !preferredBreakLength) {
             setFormError("All fields are required.");
             return;
         }
@@ -79,6 +80,8 @@ const PersonalProfile = () => {
             major: major,
             communicationStyles: communication,
             preferredStudyTechnique: studyTechnique,
+            preferredStudyLength: preferredStudyLength,  
+            preferredBreakLength: preferredBreakLength, 
             age: age, 
         };
     
@@ -95,7 +98,6 @@ const PersonalProfile = () => {
             console.error("Error updating profile:", error);
         }
     };
-    
 
     const countries = [
         "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
@@ -163,51 +165,65 @@ const PersonalProfile = () => {
 
     return ( 
         <div className="bg">
-        <div className="info-container">
-            <h2>Welcome, {profile.name}!</h2>
-            <p>To get started StudyDoubling, you must complete your profile.</p>
-            {formError && <p style={{ color: "red" }}>{formError}</p>}
-            <InputWithLabel
-                value={bio}
-                setValue={setBio}
-                label="Biography"
-                type="text"
-                placeholder="Enter your biography"
-            />
-            <InputWithLabel
-                value={dob}
-                setValue={setDob}
-                label="Date of Birth"
-                type="date"
-                placeholder="Enter your date of birth"
-            />
-            <SelectWithLabel
-                value={country}
-                setValue={setCountry}
-                label="Country"
-                options={countries}
-            />
-            <SelectWithLabel
-                value={major}
-                setValue={setMajor}
-                label="Major"
-                options={majors}
-            />
-            <SelectWithLabel
-                value={communication}
-                setValue={setCommunication}
-                label="Communication Style"
-                options={communicationStyles}
-            />
-            <SelectWithLabel
-                value={studyTechnique}
-                setValue={setStudyTechnique}
-                label="Preferred Study Technique"
-                options={studyTechniques}
-            />
+            <div className="info-container">
+                <h2>Welcome, {profile.name}!</h2>
+                <p>To get started StudyDoubling, you must complete your profile.</p>
+                {formError && <p style={{ color: "red" }}>{formError}</p>}
+                <InputWithLabel
+                    value={bio}
+                    setValue={setBio}
+                    label="Biography"
+                    type="text"
+                    placeholder="Enter your biography"
+                />
+                <InputWithLabel
+                    value={dob}
+                    setValue={setDob}
+                    label="Date of Birth"
+                    type="date"
+                    placeholder="Enter your date of birth"
+                />
+                <SelectWithLabel
+                    value={country}
+                    setValue={setCountry}
+                    label="Country"
+                    options={countries}
+                />
+                <SelectWithLabel
+                    value={major}
+                    setValue={setMajor}
+                    label="Major"
+                    options={majors}
+                />
+                <SelectWithLabel
+                    value={communication}
+                    setValue={setCommunication}
+                    label="Communication Style"
+                    options={communicationStyles}
+                />
+                <SelectWithLabel
+                    value={studyTechnique}
+                    setValue={setStudyTechnique}
+                    label="Preferred Study Technique"
+                    options={studyTechniques}
+                />
+                <InputWithLabel
+                    value={preferredStudyLength}
+                    setValue={setPreferredStudyLength}
+                    label="Preferred Study Length (minutes)"
+                    type="number"
+                    placeholder="Enter your preferred study length in minutes"
+                />
+                <InputWithLabel
+                    value={preferredBreakLength}
+                    setValue={setPreferredBreakLength}
+                    label="Preferred Break Length (minutes)"
+                    type="number"
+                    placeholder="Enter your preferred break length in minutes"
+                />
 
-            <button onClick={handleSubmit}>Submit</button>
-        </div>
+                <button onClick={handleSubmit}>Submit</button>
+            </div>
         </div>
     );
 };
