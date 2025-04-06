@@ -9,30 +9,55 @@ const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
+  
     const userMessage = { role: "user", content: input };
-    setMessages([...messages, userMessage]);
-
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsLoading(true);
+  
     try {
+      const context = {
+        "What is Node.js?": "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows developers to run JavaScript code server-side, enabling full-stack JavaScript applications.",
+        "What is React?": "React is a JavaScript library for building user interfaces, primarily used for developing single-page applications. It allows developers to create reusable UI components.",
+      };
+  
       const response = await axios.post(
-        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct",
-        { inputs: input }, 
+        "https://api-inference.huggingface.co/models/distilbert-base-uncased-distilled-squad",
         {
-          headers: { Authorization: `Bearer YOUR_HUGGINGFACE_API_KEY` },
+          inputs: {
+            question: input, 
+            context: context[input] || "Sorry, I don't have a relevant context for that question.", // Use specific context or a fallback
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer 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`,
+            "Content-Type": "application/json",
+          },
         }
       );
-
-      const botMessage = { role: "assistant", content: response.data[0].generated_text };
-      setMessages([...messages, userMessage, botMessage]);
+  
+      const botMessage = {
+        role: "assistant",
+        content: response.data.answer || "I couldn't find an answer.",
+      };
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error("Error fetching response:", error);
-      setMessages([...messages, userMessage, { role: "assistant", content: "Oops! The chatbot is currently unavailable." }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Oops! Something went wrong." },
+      ]);
     }
-
-    setInput("");
+  
+    setIsLoading(false);
   };
+  
+  
 
   return (
     <div style={{ position: "fixed", bottom: "20px", left: "10px" }}>
@@ -78,10 +103,11 @@ const ChatbotWidget = () => {
             variant="outlined"
             size="small"
             fullWidth
-            placeholder="Type a message..."
+            placeholder={isLoading ? "Bot is typing..." : "Type a message..."}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            onKeyDown={(e) => !isLoading && e.key === "Enter" && sendMessage()}
+            disabled={isLoading}
           />
         </Box>
       )}
