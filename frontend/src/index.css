@@ -870,56 +870,77 @@ code {
 }
 
 .user-cards-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  padding: 20px 0;
 }
 
 .user-card {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   background: #ffffff;
   padding: 15px 20px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease; 
+  height: 100%;
+}
+
+
+.user-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .user-card h3 {
   margin: 10px 0 5px 0;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #333;
 }
 
 .user-card p {
-  margin: 3px 0;
-  font-size: 0.95rem;
+  margin: 5px 0;
+  font-size: 1rem;
   color: #555;
+  text-align: center;
 }
+
 .user-info {
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .button-container {
-  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  width: 100%;
 }
-
 
 .addFriendButton2,
 .removeFriendButton2,
 .pendingButton2 {
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-size: 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #2ea33f;
   color: white;
   transition: background-color 0.3s ease;
+  margin: 5px;
+  width: 120px; 
+  height: 50px; 
 }
 
 .removeFriendButton2 {
   background-color: #dc3545;
+  width: 170px;
 }
 
 .pendingButton2 {

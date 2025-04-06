@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import one from "../shared/images/one.png";
 import { sendFriendInvitation, checkFriendStatus, removeFriend } from "../api";
 import Snackbar from "@mui/material/Snackbar"; 
 import Alert from "@mui/material/Alert";  
 import Avatar from "../shared/components/Avatar";
+import StarIcon from '@mui/icons-material/Star';
 
 const Explore = () => {
   const history = useHistory();
@@ -100,42 +101,77 @@ const Explore = () => {
 
         <div className="user-cards-container">
           {users.length > 0 ? (
-            users.map((user) => (
-              <div key={user.userId} className="user-card">
-                <div className="user-info">
+            users
+            .filter(user => user.userId !== userId) // <-- filter out logged-in user
+            .map((user) => (
+              <div
+                key={user.userId}
+                className="user-card"
+                onClick={() => history.push(`/profile/${user.userId}`)}
+              >
                 <Avatar username={user.name} large={true} />
-                  <h3>{user.name}, {user.age}</h3>
-                  <p><strong>Major:</strong> {user.major}</p>
-                  <p><strong>Country:</strong> {user.country}</p>
-                  <p><strong>Study Technique:</strong> {user.preferredStudyTechnique}</p>
-                </div>
-                <div className="button-container">
-                  {pendingRequests[user.userId] ? (
-                    <button className="pendingButton2" disabled>Pending</button>
-                  ) : friendStatuses[user.userId] ? (
-                    <button 
-                      className="removeFriendButton2" 
-                      onClick={() => handleRemoveFriend(user)} 
-                      disabled={loadingMail === user.mail}
-                    >
-                      {loadingMail === user.mail ? "Removing..." : "Remove Friend"}
-                    </button>
-                  ) : (
-                    <button 
-                      className="addFriendButton2" 
-                      onClick={() => handleAddFriend(user)}
-                      disabled={loadingMail === user.mail}
-                    >
-                      {loadingMail === user.mail ? "Sending..." : "Add Friend"}
-                    </button>
-                  )}
-                </div>
-              </div>
+                <h3>{user.name}, {user.age}</h3>
+                <p><strong>Major:</strong> {user.major}</p>
+                <p><strong>Country:</strong> {user.country}</p>
+                <p><strong>Study Technique:</strong> {user.preferredStudyTechnique}</p>
 
+                {user.reviews.length > 0 ? (
+                  <div className="reviews-explore">
+                    <p>
+                      {(() => {
+                        const averageRating = (
+                          user.reviews.reduce((sum, review) => sum + review.rating, 0) /
+                          user.reviews.length
+                        ).toFixed(1);
+                        const fullStars = Math.floor(averageRating);
+
+                        return (
+                          <>
+                            {Array(fullStars)
+                              .fill()
+                              .map((_, i) => (
+                                <StarIcon key={`full-${i}`} className="star" />
+                              ))}
+                          </>
+                        );
+                      })()}
+                    </p>
+                  </div>
+                ) : (
+                  <p>No reviews yet</p>
+                )}
+
+                {pendingRequests[user.userId] ? (
+                  <button className="pendingButton2" disabled>Pending</button>
+                ) : friendStatuses[user.userId] ? (
+                  <button
+                    className="removeFriendButton2"
+                    onClick={(e) => {
+                      e.stopPropagation(); 
+                      handleRemoveFriend(user);
+                    }}
+                    disabled={loadingMail === user.mail}
+                  >
+                    {loadingMail === user.mail ? "Removing..." : "Remove Friend"}
+                  </button>
+                ) : (
+                  <button
+                    className="addFriendButton2"
+                    onClick={(e) => {
+                      e.stopPropagation(); 
+                      handleAddFriend(user);
+                    }}
+                    disabled={loadingMail === user.mail}
+                  >
+                    {loadingMail === user.mail ? "Sending..." : "Add Friend"}
+                  </button>
+                )}
+              </div>
             ))
           ) : (
             <p className="loading-text">Loading users...</p>
           )}
+
         </div>
       </div>
 
@@ -163,4 +199,3 @@ const Explore = () => {
 };
 
 export default Explore;
-
