@@ -8,7 +8,6 @@ const reviewSchema = new Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-
 const userProfileSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User", unique: true, required: true },
   mail: { type: String, required: true },
@@ -31,6 +30,22 @@ const userProfileSchema = new Schema({
   },
 
   reviews: [reviewSchema] 
+});
+
+userProfileSchema.pre("save", function (next) {
+  if (this.dob) {
+    const today = new Date();
+    const birthDate = new Date(this.dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    this.age = age;
+  }
+  next();
 });
 
 module.exports = mongoose.model("UserProfile", userProfileSchema);

@@ -36,23 +36,37 @@ router.patch("/:id", auth, async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
 
+  if (updates.dob) {
+      const today = new Date();
+      const birthDate = new Date(updates.dob);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+
+      updates.age = age;
+  }
+
   try {
-    const updatedProfile = await UserProfile.findOneAndUpdate(
-      { userId: id },
-      { $set: updates },
-      { new: true, runValidators: true }
-    );
+      const updatedProfile = await UserProfile.findOneAndUpdate(
+          { userId: id },
+          { $set: updates },
+          { new: true, runValidators: true }
+      );
 
-    if (!updatedProfile) {
-      return res.status(404).json({ message: "Profile not found" });
-    }
+      if (!updatedProfile) {
+          return res.status(404).json({ message: "Profile not found" });
+      }
 
-    res.status(200).json(updatedProfile);
+      res.status(200).json(updatedProfile);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
   }
 });
+
 
 router.post("/:id/personality-test", auth, async (req, res) => {
   const { id } = req.params;

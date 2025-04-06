@@ -47,6 +47,7 @@ const postRegister = async (req, res) => {
       },
       preferredStudyTechnique: "",
       averageSessionLength: null,
+      overallRating: 5,
     });
 
     // create JWT token

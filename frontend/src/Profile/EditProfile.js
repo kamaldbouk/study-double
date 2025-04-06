@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import loadingGif from '../shared/images/load.gif';
-// import Avatar from '../shared/components/Avatar';
 import InputWithLabel from "../shared/components/InputWithLabel";
 import SelectWithLabel from "../shared/components/SelectWithLabel";
 import { getUserProfile, updateUserProfile } from "../api";
 import { useHistory } from "react-router-dom";
 
-const PersonalProfile = () => {
+const EditProfile = () => {
     const [loading, setLoading] = useState(true); 
     const [profile, setProfile] = useState(null);
     const [bio, setBio] = useState("");
@@ -16,7 +15,6 @@ const PersonalProfile = () => {
     const [country, setCountry] = useState("");
     const [major, setMajor] = useState("");
     const [error, setError] = useState("");
-    const [formError, setFormError] = useState("");
 
     const history = useHistory();
 
@@ -51,27 +49,13 @@ const PersonalProfile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        if (!bio || !dob || !communication || !studyTechnique || !country || !major) {
-            setFormError("All fields are required.");
-            return;
-        }
-    
+
         const user = JSON.parse(localStorage.getItem("user"));
         if (!user?.token) {
             setError("Authorization token required");
             return;
         }
-    
-        const today = new Date();
-        const birthDate = new Date(dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-    
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-    
+
         const updatedProfile = {
             biography: bio,
             dob: dob,
@@ -79,23 +63,21 @@ const PersonalProfile = () => {
             major: major,
             communicationStyles: communication,
             preferredStudyTechnique: studyTechnique,
-            age: age, 
         };
-    
+
         try {
             const response = await updateUserProfile(user._id, updatedProfile, user.token);
             if (response.error) {
                 setError(response.error);
             } else {
-                setProfile(response.data);
-                history.push("/personality-test");
+                setProfile(response.data); 
+                history.push("/my-profile");
             }
         } catch (error) {
             setError("Failed to update profile.");
             console.error("Error updating profile:", error);
         }
     };
-    
 
     const countries = [
         "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
@@ -157,7 +139,7 @@ const PersonalProfile = () => {
         "Sociology",
         "Theater",
         "Social Work"
-      ];
+      ];      
     const communicationStyles = ["Direct", "Casual", "Formal", "Collaborative"];
     const studyTechniques = ["Pomodoro", "112-26", "Blurting", "Other"];
 
@@ -166,7 +148,7 @@ const PersonalProfile = () => {
         <div className="info-container">
             <h2>Welcome, {profile.name}!</h2>
             <p>To get started StudyDoubling, you must complete your profile.</p>
-            {formError && <p style={{ color: "red" }}>{formError}</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <InputWithLabel
                 value={bio}
                 setValue={setBio}
@@ -212,4 +194,4 @@ const PersonalProfile = () => {
     );
 };
 
-export default PersonalProfile;
+export default EditProfile;

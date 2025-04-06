@@ -11,6 +11,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
+import { Switch } from '@mui/material';
 
 const PublicProfile = () => {
   const { id } = useParams(); 
@@ -25,7 +26,9 @@ const PublicProfile = () => {
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
-  
+  const [isSessionPref, setIsSessionPref] = useState(false); // State for session preferences toggle
+  const [activeButton, setActiveButton] = useState("profile"); // Active button for toggling between sections
+
   const userDetails = JSON.parse(localStorage.getItem("user"));
   const userId = userDetails._id;
 
@@ -44,8 +47,6 @@ const PublicProfile = () => {
           }
           const pendingResult = await fetch(`http://localhost:5002/api/friends/checkInvitation/${userId}/${id}`);
           const pendingData = await pendingResult.json();
-
-          // console.log('pending:', pendingData.pending);
           if (pendingData.pending) {
             setPendingRequest(true);
           }
@@ -58,9 +59,12 @@ const PublicProfile = () => {
     };
   
     fetchProfileAndStatus();
-
   }, [id, userId]);
-  
+
+  const handleToggleChange = (event) => {
+    setIsSessionPref(event.target.checked);
+    setActiveButton(event.target.checked ? "session" : "profile");
+  };
 
   const handleAddFriend = async () => {
     setLoadingMail(true);
@@ -78,7 +82,6 @@ const PublicProfile = () => {
     setLoadingMail(true);
     try {
       const result = await removeFriend(userId, id);
-      
       if (!result.error) {
         setSuccessMessage(`You have removed ${profile.name} from your friends.`);
         setIsFriend(false);
@@ -97,10 +100,8 @@ const PublicProfile = () => {
       setErrorMessage("Please provide a rating and description.");
       return;
     }
-  
     try {
       const response = await leaveReview(userId, id, { rating, description: reviewText });
-  
       if (!response.error) {
         setSuccessMessage("Review submitted successfully!");
         setProfile((prevProfile) => ({
@@ -139,7 +140,6 @@ const PublicProfile = () => {
             <Avatar username={profile.name} large={true} className="avatar-class" />
             <h3>{profile.name}</h3>
           </div>
-          <StarIcon className="star" />
           <p>{profile.biography}</p>
           
           {(pendingRequest && !isFriend) ? (
@@ -165,19 +165,37 @@ const PublicProfile = () => {
             </button>
           )}
 
+          {/* Session Preferences Toggle */}
+          <div>
+            <Switch
+              checked={isSessionPref}
+              onChange={handleToggleChange}
+              name="sessionPrefToggle"
+              inputProps={{ 'aria-label': 'Profile Info / Session Preferences toggle' }}
+            />
+            <p>{isSessionPref ? "Session Preferences" : "Profile Information"}</p>
+          </div>
         </div>
 
         <div className="middleBox">
-          <h2>Profile Information</h2>
-          <div className="profileDetails">
-            <p><strong>Full Name:</strong> {profile.name}</p>
-            <p><strong>Age:</strong> {profile.age}</p>
-            <p><strong>Location:</strong> {profile.country}</p>
-            <p><strong>Major:</strong> {profile.major}</p>
-            <p><strong>Communication Style:</strong> {profile.communicationStyles}</p>
-            <p><strong>Preferred Study Technique:</strong> {profile.preferredStudyTechnique}</p>
-            <p><strong>Average Session Length:</strong> {profile.averageSessionLength} hours</p>
-          </div>
+          {isSessionPref ? (
+            <div className="session-pref">
+              <h2>Session Preferences</h2>
+              <p>Session Preferences content here.</p>
+            </div>
+          ) : (
+            <div className="profileDetails">
+              <h2>Profile Information</h2>
+              <div className="profile-info">
+                <p><strong>Email:</strong> {profile.mail}</p>
+                <p><strong>Age:</strong> {profile.age}</p>
+                <p><strong>Location:</strong> {profile.country}</p>
+                <p><strong>Major:</strong> {profile.major}</p>
+                <p><strong>Communication Style:</strong> {profile.communicationStyles}</p>
+                <p><strong>Preferred Study Technique:</strong> {profile.preferredStudyTechnique}</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -232,8 +250,6 @@ const PublicProfile = () => {
           <p>No reviews yet.</p>
         )}
       </div>
-
-
     </div>
   );
 };

@@ -15,6 +15,7 @@ import PublicProfile from "./Profile/PublicProfile";
 import PersonalProfile from "./Profile/PersonalProfile";
 import PersonalProfile2 from "./Profile/PersonalProfile2";
 import PersonalityTest from "./Profile/PersonalityTest";
+import EditProfile from "./Profile/EditProfile";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/edit-profile">
             <PersonalProfile />
+          </Route>
+          <Route exact path="/edit-my-profile">
+            <EditProfile />
           </Route>
           <Route exact path="/my-profile">
             <PersonalProfile2 />
