@@ -3,7 +3,6 @@ import { useParams, useHistory } from "react-router-dom";
 import { getUserProfile, sendFriendInvitation, checkFriendStatus, removeFriend, leaveReview } from "../api";
 import one from '../shared/images/one.png';
 import Avatar from '../shared/components/Avatar';
-import StarIcon from '@mui/icons-material/Star';
 import load from '../shared/images/load.gif';
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -11,7 +10,6 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
-import { Switch } from '@mui/material';
 
 const PublicProfile = () => {
   const { id } = useParams(); 
@@ -26,8 +24,6 @@ const PublicProfile = () => {
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
-  const [isSessionPref, setIsSessionPref] = useState(false);
-  const [activeButton, setActiveButton] = useState("profile");
 
   const userDetails = JSON.parse(localStorage.getItem("user"));
   const userId = userDetails._id;
@@ -60,11 +56,6 @@ const PublicProfile = () => {
   
     fetchProfileAndStatus();
   }, [id, userId]);
-
-  const handleToggleChange = (event) => {
-    setIsSessionPref(event.target.checked);
-    setActiveButton(event.target.checked ? "session" : "profile");
-  };
 
   const handleAddFriend = async () => {
     setLoadingMail(true);
@@ -131,6 +122,7 @@ const PublicProfile = () => {
         <div className="navbarContent2">
           <button className="navbarButton" onClick={() => history.push("/dashboard")}>Dashboard</button>
           <button className="navbarButton" onClick={() => history.push("/explore")}>Explore</button>
+          <button className="navbarButton" onClick={() => history.push("/my-profile")}>Profile</button>
         </div>
       </nav>
 
@@ -164,61 +156,100 @@ const PublicProfile = () => {
               {loadingMail ? "Sending..." : "Add Friend"}
             </button>
           )}
-
-          {/* Session Preferences Toggle */}
-          <div>
-            <Switch
-              checked={isSessionPref}
-              onChange={handleToggleChange}
-              name="sessionPrefToggle"
-              inputProps={{ 'aria-label': 'Profile Info / Session Preferences toggle' }}
-            />
-            <p>{isSessionPref ? "Session Preferences" : "Profile Information"}</p>
-          </div>
         </div>
 
         <div className="middleBox">
-          {isSessionPref ? (
-            <div className="session-pref">
-              <h2>Session Preferences</h2>
-              
-              <div className="preference-box">
-                <p><strong>Preferred Study Technique:</strong></p>
-                <div className="box">
-                  <p>{profile.preferredStudyTechnique}</p>
-                </div>
-              </div>
-              
-              <div className="preference-box">
-                <p><strong>Preferred Study Length:</strong></p>
-                <div className="box">
-                  <p>{profile.preferredStudyLength}</p>
-                  <p>minutes</p>
-                </div>
-              </div>
-            
-              <div className="preference-box">
-                <p><strong>Preferred Break Length:</strong></p>
-                <div className="box">
-                  <p>{profile.preferredBreakLength}</p>
-                  <p>minutes</p>
-                </div>
-              </div>
+          <div className="profileDetails">
+            <h2>Profile Information</h2>
+            <div className="profile-info">
+              <p><strong>Email:</strong> {profile.mail}</p>
+              <p><strong>Age:</strong> {profile.age}</p>
+              <p><strong>Location:</strong> {profile.country}</p>
+              <p><strong>Major:</strong> {profile.major}</p>
+              <p><strong>Communication Style:</strong> {profile.communicationStyles}</p>
+              <p><strong>Preferred Study Technique:</strong> {profile.preferredStudyTechnique}</p>
             </div>
-          ) : (
-            <div className="profileDetails">
-              <h2>Profile Information</h2>
-              <div className="profile-info">
-                <p><strong>Email:</strong> {profile.mail}</p>
-                <p><strong>Age:</strong> {profile.age}</p>
-                <p><strong>Location:</strong> {profile.country}</p>
-                <p><strong>Major:</strong> {profile.major}</p>
-                <p><strong>Communication Style:</strong> {profile.communicationStyles}</p>
-                <p><strong>Preferred Study Technique:</strong> {profile.preferredStudyTechnique}</p>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
+        <div className="personalityResults">
+          <h2>Big Five Inventory Results</h2>
+          <div className="profile-info">
+            {profile.personalityTestResults && Object.keys(profile.personalityTestResults).map((key, index) => {
+              const score = profile.personalityTestResults[key] * 100;
+              return (
+                <div key={index} className="personality-item">
+                  <p><strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong></p>
+                  <div className="progress-bar-container">
+                    <div 
+                      className="progress-bar" 
+                      style={{ width: `${score}%` }}
+                    />
+                    <div className="percentage-label">
+                      {score}%
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="session-pref">
+        
+        <div className="preference-box">
+          <p><strong>Preferred Study Technique:</strong></p>
+          <div className="box">
+            <p><strong>{profile.preferredStudyTechnique}</strong></p>
+            <p>Technique</p>
+          </div>
+        </div>
+        
+        <div className="preference-box">
+          <p><strong>Preferred Study Length:</strong></p>
+          <div className="box">
+            <p>{profile.preferredStudyLength}</p>
+            <p>minutes</p>
+          </div>
+        </div>
+      
+        <div className="preference-box">
+          <p><strong>Preferred Break Length:</strong></p>
+          <div className="box">
+            <p>{profile.preferredBreakLength}</p>
+            <p>minutes</p>
+          </div>
+        </div>
+
+        <div className="preference-box">
+          <p><strong>Todays Total Study Time:</strong></p>
+          <div className="box">
+            <p>{profile.preferredStudyLength}</p>
+            <p>minutes</p>
+          </div>
+        </div>
+
+        <div className="preference-box">
+          <p><strong>Todays Goal Categories:</strong></p>
+          <div className="box">
+            <p>{profile.todayGoals}</p>
+            <p>minutes</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="reviewsSection">
+        <h2>{profile.name}'s Reviews</h2>
+        {profile.reviews && profile.reviews.length > 0 ? (
+          profile.reviews.map((review, index) => (
+            <div key={index} className="review">
+              <p><strong>Rating:</strong> {review.rating} ⭐</p>
+              <p>{review.description}</p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews yet.</p>
+        )}
       </div>
 
       <Snackbar
@@ -242,7 +273,7 @@ const PublicProfile = () => {
       </Snackbar>
 
       <Modal open={openReviewModal} onClose={() => setOpenReviewModal(false)}>
-        <Box sx={{ width: 400, bgcolor: "white", p: 3, borderRadius: 2, mx: "auto", mt: 5 }} className="modalContent">
+        <Box sx={{ width: 400, bgcolor: "white", p: 3, borderRadius: 2, mx: "auto", mt: 5, zIndex: 99999999999 }} className="modalContent">
           <h3>Leave a Review</h3>
           <Rating value={rating} onChange={(event, newValue) => setRating(newValue)} />
           <TextField
@@ -258,20 +289,6 @@ const PublicProfile = () => {
           <button className="submitReviewButton" onClick={handleLeaveReview}>Submit</button>
         </Box>
       </Modal>
-
-      <div className="reviewsSection">
-        <h2>User Reviews</h2>
-        {profile.reviews && profile.reviews.length > 0 ? (
-          profile.reviews.map((review, index) => (
-            <div key={index} className="review">
-              <p><strong>Rating:</strong> {review.rating} ⭐</p>
-              <p>{review.description}</p>
-            </div>
-          ))
-        ) : (
-          <p>No reviews yet.</p>
-        )}
-      </div>
     </div>
   );
 };

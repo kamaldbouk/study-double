@@ -57,6 +57,27 @@ export const getUserProfile = async (userId) => {
 
 
 // secure routes
+
+export const updatePreferences = async (id, updates, token) => {
+  try {
+    const response = await fetch(`http://localhost:5002/api/profile/${id}/preferences`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updates),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Update failed");
+    return data;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+
 export const sendFriendInvitation = async (data) => {
   try {
     return await apiClient.post("/friend-invitation/invite", data);

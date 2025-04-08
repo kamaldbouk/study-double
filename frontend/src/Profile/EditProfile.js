@@ -30,12 +30,21 @@ const EditProfile = () => {
             const result = await getUserProfile(user._id);
             if (!result.error) {
                 setProfile(result);
+                setBio(result.biography || "");
+                setDob(result.dob || "");
+                setCommunication(result.communicationStyles || "");
+                setStudyTechnique(result.preferredStudyTechnique || "");
+                setCountry(result.country || "");
+                setMajor(result.major || "");
+                setPreferredStudyLength(result.preferredStudyLength || "");
+                setPreferredBreakLength(result.preferredBreakLength || "");
             }
             setLoading(false);
         };
-
+    
         fetchProfile();
     }, []);
+    
     
     if (loading) {
         return (
@@ -195,7 +204,7 @@ const EditProfile = () => {
                 label="Communication Style"
                 options={communicationStyles}
             />
-            <SelectWithLabel
+            {/* <SelectWithLabel
                 value={studyTechnique}
                 setValue={setStudyTechnique}
                 label="Preferred Study Technique"
@@ -214,7 +223,7 @@ const EditProfile = () => {
                 label="Preferred Break Length (minutes)"
                 type="number"
                 placeholder="Enter your preferred break length in minutes"
-            />
+            /> */}
 
             <button onClick={handleSubmit}>Submit</button>
         </div>

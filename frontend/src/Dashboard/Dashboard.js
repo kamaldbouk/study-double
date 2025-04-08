@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/system";
 import Sidebar from "./SideBar/Sidebar";
 import FriendsSideBar from "./FriendsSideBar/FriendsSideBar";
@@ -22,6 +22,8 @@ const Wrapper = styled("div")({
 });
 
 const Dashboard = ({ setUserDetails, isUserInRoom }) => {
+  const [showFriendsSidebar, setShowFriendsSidebar] = useState(true);
+
   useEffect(() => {
     const userDetails = localStorage.getItem("user");
 
@@ -35,12 +37,13 @@ const Dashboard = ({ setUserDetails, isUserInRoom }) => {
 
   return (
     <Wrapper>
-      <Sidebar />
-      <FriendsSideBar />
-      <Messenger />
-      <AppBar />
-      { isUserInRoom && <Room /> }
+      <Sidebar toggleSidebar={() => setShowFriendsSidebar(prev => !prev)} />
+      {showFriendsSidebar && <FriendsSideBar />}
+      <Messenger fullWidth={!showFriendsSidebar} />
+      <AppBar toggleSidebar={() => setShowFriendsSidebar(prev => !prev)} />
+      {isUserInRoom && <Room />}
     </Wrapper>
+
   );
 };
 

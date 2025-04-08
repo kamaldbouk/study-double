@@ -93,6 +93,7 @@ const Explore = () => {
         <div className="navbarContent2">
           <button className="navbarButton" onClick={() => history.push("/dashboard")}>Dashboard</button>
           <button className="navbarButton" onClick={() => history.push("/explore")}>Explore</button>
+          <button className="navbarButton" onClick={() => history.push("/my-profile")}>Profile</button>
         </div>
       </nav>
 

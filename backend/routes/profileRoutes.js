@@ -137,6 +137,43 @@ router.post("/:id/review", async (req, res) => {
   }
 });
 
+router.patch("/:id/preferences", async (req, res) => {
+  const { id } = req.params;
+  const {
+    preferredStudyTechnique,
+    preferredStudyLength,
+    preferredBreakLength,
+    todayStudyLength,
+    todayGoals,
+  } = req.body;
+
+  const updates = {};
+
+  if (preferredStudyTechnique !== undefined) updates.preferredStudyTechnique = preferredStudyTechnique;
+  if (preferredStudyLength !== undefined) updates.preferredStudyLength = preferredStudyLength;
+  if (preferredBreakLength !== undefined) updates.preferredBreakLength = preferredBreakLength;
+  if (todayStudyLength !== undefined) updates.todayStudyLength = todayStudyLength;
+  if (todayGoals !== undefined) updates.todayGoals = todayGoals;
+
+  try {
+    const updatedProfile = await UserProfile.findOneAndUpdate(
+      { userId: id },
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.status(200).json({ message: "Preferences updated successfully!", profile: updatedProfile });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 // router.get("/online", async (req, res) => {
 //   try {
 //     const onlineUsers = await OnlineUser.find();

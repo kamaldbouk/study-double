@@ -7,6 +7,7 @@ import ActiveRoomButton from "./ActiveRoomButton";
 import TechniquesWidget from "./TechniquesWidget";
 import ChatbotWidget from "./ChatbotWidget";
 import GoalsWidget from "./GoalsWidget";
+import DisplayFriends from "./DisplayFriends";
 
 const MainContainer = styled("div")({
   width: "72px",
@@ -27,10 +28,11 @@ const MainContainer = styled("div")({
   },
 });
 
-const SideBar = ({ activeRooms, isUserInRoom }) => {
+const SideBar = ({ activeRooms, isUserInRoom, toggleSidebar }) => {
   return (
     <MainContainer>
       <MainPageButton />
+      <DisplayFriends toggleSidebar={toggleSidebar} />
       <CreateRoomButton isUserInRoom={isUserInRoom} />
       {activeRooms.map(room => (
         <ActiveRoomButton
@@ -47,6 +49,7 @@ const SideBar = ({ activeRooms, isUserInRoom }) => {
     </MainContainer>
   );
 };
+
 
 const mapStoreStateToProps = ({ room }) => {
   return {
