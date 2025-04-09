@@ -275,7 +275,14 @@ const PublicProfile = () => {
       <Modal open={openReviewModal} onClose={() => setOpenReviewModal(false)}>
         <Box sx={{ width: 400, bgcolor: "white", p: 3, borderRadius: 2, mx: "auto", mt: 5, zIndex: 99999999999 }} className="modalContent">
           <h3>Leave a Review</h3>
-          <Rating value={rating} onChange={(event, newValue) => setRating(newValue)} />
+
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+            <Rating
+              value={rating}
+              onChange={(event, newValue) => setRating(newValue)}
+            />
+          </Box>
+
           <TextField
             fullWidth
             multiline
@@ -286,9 +293,15 @@ const PublicProfile = () => {
             onChange={(e) => setReviewText(e.target.value)}
             sx={{ mt: 2 }}
           />
-          <button className="submitReviewButton" onClick={handleLeaveReview}>Submit</button>
+
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <button className="leaveReviewButton" onClick={handleLeaveReview}>
+              Submit
+            </button>
+          </Box>
         </Box>
       </Modal>
+
     </div>
   );
 };
