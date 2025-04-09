@@ -84,7 +84,6 @@ const PersonalProfile2 = () => {
       alert(`Failed to update: ${result.error}`);
     } else {
       setProfile(result.profile); 
-      alert("Preferences updated successfully!");
     }
   
     handleCloseModal();
