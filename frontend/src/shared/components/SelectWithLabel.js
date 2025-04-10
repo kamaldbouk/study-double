@@ -7,6 +7,7 @@ const Wrapper = styled("div")({
   flexDirection: "column",
   width: "100%",
   marginBottom: "15px",
+  maxWidth: "800px",
 });
 
 const Label = styled("p")({

@@ -6,6 +6,7 @@ const Wrapper = styled("div")({
   justifyContent: "center",
   flexDirection: "column",
   width: "100%",
+   maxWidth: "800px"
 });
 
 const Label = styled("p")({

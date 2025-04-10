@@ -18,6 +18,7 @@ const PersonalProfile = () => {
     const [preferredBreakLength, setPreferredBreakLength] = useState(""); 
     const [error, setError] = useState("");
     const [formError, setFormError] = useState("");
+    const [step, setStep] = useState(1);
 
     const history = useHistory();
 
@@ -169,60 +170,80 @@ const PersonalProfile = () => {
                 <h2>Welcome, {profile.name}!</h2>
                 <p>To get started StudyDoubling, you must complete your profile.</p>
                 {formError && <p style={{ color: "red" }}>{formError}</p>}
-                <InputWithLabel
-                    value={bio}
-                    setValue={setBio}
-                    label="Biography"
-                    type="text"
-                    placeholder="Enter your biography"
-                />
-                <InputWithLabel
-                    value={dob}
-                    setValue={setDob}
-                    label="Date of Birth"
-                    type="date"
-                    placeholder="Enter your date of birth"
-                />
-                <SelectWithLabel
-                    value={country}
-                    setValue={setCountry}
-                    label="Country"
-                    options={countries}
-                />
-                <SelectWithLabel
-                    value={major}
-                    setValue={setMajor}
-                    label="Major"
-                    options={majors}
-                />
-                <SelectWithLabel
-                    value={communication}
-                    setValue={setCommunication}
-                    label="Communication Style"
-                    options={communicationStyles}
-                />
-                <SelectWithLabel
-                    value={studyTechnique}
-                    setValue={setStudyTechnique}
-                    label="Preferred Study Technique"
-                    options={studyTechniques}
-                />
-                <InputWithLabel
-                    value={preferredStudyLength}
-                    setValue={setPreferredStudyLength}
-                    label="Preferred Study Length (minutes)"
-                    type="number"
-                    placeholder="Enter your preferred study length in minutes"
-                />
-                <InputWithLabel
-                    value={preferredBreakLength}
-                    setValue={setPreferredBreakLength}
-                    label="Preferred Break Length (minutes)"
-                    type="number"
-                    placeholder="Enter your preferred break length in minutes"
-                />
+                <div className="form-slider-wrapper">
+                <div className="form-slider" style={{ transform: `translateX(-${(step - 1) * 100}%)` }}>
+                    <div className="form-step">
+                        <InputWithLabel
+                            value={bio}
+                            setValue={setBio}
+                            label="Biography"
+                            type="text"
+                            placeholder="Enter your biography"
+                        />
+                        <InputWithLabel
+                            value={dob}
+                            setValue={setDob}
+                            label="Date of Birth"
+                            type="date"
+                            placeholder="Enter your date of birth"
+                        />
+                        <SelectWithLabel
+                            value={country}
+                            setValue={setCountry}
+                            label="Country"
+                            options={countries}
+                        />
+                        <SelectWithLabel
+                            value={major}
+                            setValue={setMajor}
+                            label="Major"
+                            options={majors}
+                        />
+                    </div>
 
-                <button onClick={handleSubmit}>Submit</button>
+                    <div className="form-step">
+                        <SelectWithLabel
+                            value={communication}
+                            setValue={setCommunication}
+                            label="Communication Style"
+                            options={communicationStyles}
+                        />
+                        <SelectWithLabel
+                            value={studyTechnique}
+                            setValue={setStudyTechnique}
+                            label="Preferred Study Technique"
+                            options={studyTechniques}
+                        />
+                        <InputWithLabel
+                            value={preferredStudyLength}
+                            setValue={setPreferredStudyLength}
+                            label="Preferred Study Length (minutes)"
+                            type="number"
+                            placeholder="Enter your preferred study length in minutes"
+                        />
+                        <InputWithLabel
+                            value={preferredBreakLength}
+                            setValue={setPreferredBreakLength}
+                            label="Preferred Break Length (minutes)"
+                            type="number"
+                            placeholder="Enter your preferred break length in minutes"
+                        />
+                    </div>
+                </div>
+
+                <div className="form-buttons">
+                    {step > 1 && (
+                        <button onClick={() => setStep(step - 1)}>Back</button>
+                    )}
+                    {step < 2 && (
+                        <button onClick={() => setStep(step + 1)}>Next</button>
+                    )}
+                    {step === 2 && (
+                        <button onClick={handleSubmit}>Submit</button>
+                    )}
+                </div>
+
+            </div>
             </div>
         </div>
     );

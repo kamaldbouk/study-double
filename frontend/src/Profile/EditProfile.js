@@ -224,8 +224,7 @@ const EditProfile = () => {
                 type="number"
                 placeholder="Enter your preferred break length in minutes"
             /> */}
-
-            <button onClick={handleSubmit}>Submit</button>
+            <button className="submit-profile" onClick={handleSubmit}>Submit</button>
         </div>
         </div>
     );

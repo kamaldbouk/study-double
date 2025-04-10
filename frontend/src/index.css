@@ -53,7 +53,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #5F8575;
+  background: linear-gradient(135deg, rgb(100, 72, 255), rgb(0,217,173));
 }
 
 .auth-box {
@@ -603,7 +603,6 @@ code {
   font-size: 1.8em;
   font-weight: bold;
   margin: 0;
-  overflow: scroll;
 }
 
 .box p:last-child {
@@ -624,7 +623,7 @@ code {
 /* Personal Profile */
 
 .bg {
-  background-color: #4a6f65;
+  background: linear-gradient(135deg, rgb(100, 72, 255), rgb(0,217,173));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -748,19 +747,6 @@ code {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-/* .info-container .avatar-container {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.info-container .avatar-container img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-} */
-
 .info-container h3 {
   color: #333;
 }
@@ -768,6 +754,58 @@ code {
 .info-container div {
   padding: 1rem;
 }
+
+.form-slider-wrapper {
+  width: 100%;
+  overflow: hidden; 
+}
+
+.form-slider {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+  width: 200%; 
+}
+
+.form-step {
+  width: 100%;
+  flex-shrink: 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  background: linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin: 10px;
+}
+
+.form-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  opacity: 0.95;
+}
+
+.form-buttons button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 .MuiDialog-root {
   background-color: rgba(0, 0, 0, 0.4); 
@@ -834,6 +872,31 @@ code {
 
 .MuiDialogActions-root .MuiButton-root {
   min-width: 120px;
+}
+
+.submit-profile {
+  background: linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin: 10px;
+}
+
+.submit-profile:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  opacity: 0.95;
+}
+
+.submit-profile:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {
