@@ -233,7 +233,7 @@ const PublicProfile = () => {
           <p><strong>Todays Goal Categories:</strong></p>
           <div className="box">
             <p>{profile.todayGoals}</p>
-            <p>minutes</p>
+            <p></p>
           </div>
         </div>
       </div>

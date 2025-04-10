@@ -38,8 +38,7 @@ const RegisterPage = ({ register }) => {
 
   return (
     <AuthBox>
-      <p className="register-header">Welcome.</p>
-      <p className="register-subtext">Create an Account and Get Started Study Doubling!</p>
+      <p className="register-header">Sign Up.</p>
       <RegisterPageInputs
         mail={mail}
         setMail={setMail}

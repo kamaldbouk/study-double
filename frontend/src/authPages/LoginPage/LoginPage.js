@@ -30,7 +30,8 @@ const LoginPage = ({ login }) => {
 
   return (
     <AuthBox>
-      <LoginPageHeader />
+      <p className="login-header">Sign In.</p>
+      {/* <LoginPageHeader /> */}
       <LoginPageInputs
         mail={mail}
         setMail={setMail}

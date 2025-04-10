@@ -4,6 +4,7 @@ import InputWithLabel from "../shared/components/InputWithLabel";
 import SelectWithLabel from "../shared/components/SelectWithLabel";
 import { getUserProfile, updateUserProfile } from "../api";
 import { useHistory } from "react-router-dom";
+import wave from '../shared/images/wave.gif'
 
 const PersonalProfile = () => {
     const [loading, setLoading] = useState(true); 
@@ -134,8 +135,9 @@ const PersonalProfile = () => {
         "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay",
         "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen",
         "Zambia", "Zimbabwe"
-      ];
-      const majors = [
+    ];
+    
+    const majors = [
         "Accounting",
         "Biology",
         "Business Administration",
@@ -160,90 +162,93 @@ const PersonalProfile = () => {
         "Sociology",
         "Theater",
         "Social Work"
-      ];
+    ];
+    
     const communicationStyles = ["Direct", "Casual", "Formal", "Collaborative"];
     const studyTechniques = ["Pomodoro", "112-26", "Blurting", "Other"];
 
     return ( 
         <div className="bg">
             <div className="info-container">
-                <h2>Welcome, {profile.name}!</h2>
-                <p>To get started StudyDoubling, you must complete your profile.</p>
                 {formError && <p style={{ color: "red" }}>{formError}</p>}
                 <div className="form-slider-wrapper">
-                <div className="form-slider" style={{ transform: `translateX(-${(step - 1) * 100}%)` }}>
+                    <div className="form-slider" style={{ transform: `translateX(-${(step - 1) * 100}%)` }}>
                     <div className="form-step">
-                        <InputWithLabel
-                            value={bio}
-                            setValue={setBio}
-                            label="Biography"
-                            type="text"
-                            placeholder="Enter your biography"
-                        />
-                        <InputWithLabel
-                            value={dob}
-                            setValue={setDob}
-                            label="Date of Birth"
-                            type="date"
-                            placeholder="Enter your date of birth"
-                        />
-                        <SelectWithLabel
-                            value={country}
-                            setValue={setCountry}
-                            label="Country"
-                            options={countries}
-                        />
-                        <SelectWithLabel
-                            value={major}
-                            setValue={setMajor}
-                            label="Major"
-                            options={majors}
-                        />
+                        <div className="form-step-info">
+                            <h2>Welcome, {profile.name}!</h2>
+                            <p>To get started with StudyDoubling, you must complete your profile.</p>
+                            <img src={wave} alt="Wave GIF" className="irregular-gif" />
+                        </div>
                     </div>
-
-                    <div className="form-step">
-                        <SelectWithLabel
-                            value={communication}
-                            setValue={setCommunication}
-                            label="Communication Style"
-                            options={communicationStyles}
-                        />
-                        <SelectWithLabel
-                            value={studyTechnique}
-                            setValue={setStudyTechnique}
-                            label="Preferred Study Technique"
-                            options={studyTechniques}
-                        />
-                        <InputWithLabel
-                            value={preferredStudyLength}
-                            setValue={setPreferredStudyLength}
-                            label="Preferred Study Length (minutes)"
-                            type="number"
-                            placeholder="Enter your preferred study length in minutes"
-                        />
-                        <InputWithLabel
-                            value={preferredBreakLength}
-                            setValue={setPreferredBreakLength}
-                            label="Preferred Break Length (minutes)"
-                            type="number"
-                            placeholder="Enter your preferred break length in minutes"
-                        />
+                        <div className="form-step">
+                            <InputWithLabel
+                                value={bio}
+                                setValue={setBio}
+                                label="Biography"
+                                type="text"
+                                placeholder="Enter your biography"
+                            />
+                            <InputWithLabel
+                                value={dob}
+                                setValue={setDob}
+                                label="Date of Birth"
+                                type="date"
+                                placeholder="Enter your date of birth"
+                            />
+                            <SelectWithLabel
+                                value={country}
+                                setValue={setCountry}
+                                label="Country"
+                                options={countries}
+                            />
+                            <SelectWithLabel
+                                value={major}
+                                setValue={setMajor}
+                                label="Major"
+                                options={majors}
+                            />
+                        </div>
+                        <div className="form-step">
+                            <SelectWithLabel
+                                value={communication}
+                                setValue={setCommunication}
+                                label="Communication Style"
+                                options={communicationStyles}
+                            />
+                            <SelectWithLabel
+                                value={studyTechnique}
+                                setValue={setStudyTechnique}
+                                label="Preferred Study Technique"
+                                options={studyTechniques}
+                            />
+                            <InputWithLabel
+                                value={preferredStudyLength}
+                                setValue={setPreferredStudyLength}
+                                label="Preferred Study Length (minutes)"
+                                type="number"
+                                placeholder="Enter your preferred study length in minutes"
+                            />
+                            <InputWithLabel
+                                value={preferredBreakLength}
+                                setValue={setPreferredBreakLength}
+                                label="Preferred Break Length (minutes)"
+                                type="number"
+                                placeholder="Enter your preferred break length in minutes"
+                            />
+                        </div>
+                    </div>
+                    <div className="form-buttons">
+                        {step > 1 && (
+                            <button onClick={() => setStep(step - 1)}>Back</button>
+                        )}
+                        {step < 3 && (
+                            <button onClick={() => setStep(step + 1)}>Next</button>
+                        )}
+                        {step === 3 && (
+                            <button onClick={handleSubmit}>Submit</button>
+                        )}
                     </div>
                 </div>
-
-                <div className="form-buttons">
-                    {step > 1 && (
-                        <button onClick={() => setStep(step - 1)}>Back</button>
-                    )}
-                    {step < 2 && (
-                        <button onClick={() => setStep(step + 1)}>Next</button>
-                    )}
-                    {step === 2 && (
-                        <button onClick={handleSubmit}>Submit</button>
-                    )}
-                </div>
-
-            </div>
             </div>
         </div>
     );
