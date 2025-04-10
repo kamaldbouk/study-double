@@ -212,19 +212,22 @@ const PersonalProfile2 = () => {
         </div>
       </div>
 
-      <div className="reviewsSection">
-        <h2>User Reviews</h2>
-        {profile.reviews && profile.reviews.length > 0 ? (
-          profile.reviews.map((review, index) => (
+      
+      {profile.reviews && profile.reviews.length > 0 ? (
+        <div className="reviewsSection">
+          <h2>User Reviews</h2>
+          {profile.reviews.map((review, index) => (
             <div key={index} className="review">
               <p><strong>Rating:</strong> {review.rating} ⭐</p>
               <p>{review.description}</p>
             </div>
-          ))
-        ) : (
-          <p>No reviews yet.</p>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+      <div></div>
+      )}
+
+
 
       <Dialog open={openModal} onClose={handleCloseModal}>
         <DialogTitle>Edit {modalType}</DialogTitle>

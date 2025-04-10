@@ -1134,7 +1134,7 @@ code {
 
 /* Personality Test */
 .bg-container {
-  background-color: #4a6f65;
+  background: linear-gradient(135deg, rgb(100, 72, 255), rgb(0,217,173));
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -1203,19 +1203,30 @@ code {
 }
 
 .submit-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
+  background: linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173));
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin: 10px;
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  opacity: 0.95;
 }
+
+.submit-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 .results-container {
   margin-top: 20px;
