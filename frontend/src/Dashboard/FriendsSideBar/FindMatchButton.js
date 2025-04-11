@@ -7,9 +7,14 @@ const additionalStyles = {
   marginLeft: "5px",
   width: "80%",
   height: "30px",
-  background: "#5F8575",
+  background: "linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173))",
+  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+  transition: "all 0.3s ease",
+  borderRadius: "8px",
   "&:hover": {
-    background: "#4a6b5a", 
+    background: "linear-gradient(135deg, rgb(81, 59, 204), rgb(0, 167, 133))",
+    boxShadow: "0 6px 15px rgba(0, 0, 0, 0.3)",
+    transform: "scale(1.03)",
   },
 };
 

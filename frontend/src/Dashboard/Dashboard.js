@@ -40,7 +40,7 @@ const Dashboard = ({ setUserDetails, isUserInRoom }) => {
       <Sidebar toggleSidebar={() => setShowFriendsSidebar(prev => !prev)} />
       {showFriendsSidebar && <FriendsSideBar />}
       <Messenger fullWidth={!showFriendsSidebar} />
-      <AppBar toggleSidebar={() => setShowFriendsSidebar(prev => !prev)} />
+      <AppBar sidebarVisible={showFriendsSidebar} toggleSidebar={() => setShowFriendsSidebar(prev => !prev)} />
       {isUserInRoom && <Room />}
     </Wrapper>
 

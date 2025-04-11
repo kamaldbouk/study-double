@@ -66,7 +66,7 @@ const ChatbotWidget = () => {
           width: "48px",
           height: "48px",
           borderRadius: "10px",
-          backgroundColor: "#5F8575",
+          background: "linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173))",
           color: "white",
           minWidth: "unset",
         }}

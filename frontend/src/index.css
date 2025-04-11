@@ -892,14 +892,8 @@ code {
   margin-left: 20px;
 }
 
-.form-step-info h2 {
-  transform: translateX(200px); 
-}
-.form-step-info p {
-  transform: translateX(100px); 
-}
 .form-step-info img {
-  margin-top: 20px;
+  margin-top: 25px;
   transform: translateX(150px); 
 }
 
@@ -908,7 +902,7 @@ code {
   justify-content: space-between;
   width: 100%;
   max-width: 500px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .form-buttons button {

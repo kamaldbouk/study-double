@@ -17,7 +17,7 @@ const AddFriendDialog = ({
   sendFriendInvitation = () => {},
 }) => {
   const [mail, setMail] = useState("");
-  const [isFormValid, setIsFormValid] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSendInvitation = () => {
     sendFriendInvitation(
@@ -35,49 +35,62 @@ const AddFriendDialog = ({
 
   useEffect(() => {
     setIsFormValid(validateMail(mail));
-  }, [mail, setIsFormValid]);
+  }, [mail]);
 
   return (
-    <div>
-      <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle>
-          <Typography>Invite a Friend</Typography>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Typography>
-              Enter e-mail address of friend which you would like to invite
-            </Typography>
-          </DialogContentText>
-          <InputWithLabel
-            label="Mail"
-            type="text"
-            value={mail}
-            setValue={setMail}
-            placeholder="Enter mail address"
-          />
-        </DialogContent>
-        <DialogActions>
-          <CustomPrimaryButton
-            onClick={handleSendInvitation}
-            disabled={!isFormValid}
-            label="Send"
-            additionalStyles={{
-              marginLeft: "15px",
-              marginRight: "15px",
-              marginBottom: "10px",
-            }}
-          />
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog
+      open={isDialogOpen}
+      onClose={handleCloseDialog}
+      PaperProps={{
+        sx: {
+          padding: "25px 20px",
+          borderRadius: "16px",
+          backgroundColor: "#f9f9f9",
+          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+          minWidth: { xs: "90%", sm: "400px" },
+        },
+      }}
+    >
+      <DialogTitle>
+        <Typography variant="h5" sx={{ fontWeight: 600, color: "#333" }}>
+          Invite a Friend
+        </Typography>
+      </DialogTitle>
+
+      <DialogContent>
+        <DialogContentText sx={{ marginBottom: "20px", color: "#666" }}>
+          Please enter your friend's email address to send them an invitation.
+        </DialogContentText>
+
+        <InputWithLabel
+          label="Email Address"
+          type="text"
+          value={mail}
+          setValue={setMail}
+          placeholder="example@email.com"
+        />
+      </DialogContent>
+
+      <DialogActions sx={{ justifyContent: "center", paddingBottom: "10px" }}>
+        <CustomPrimaryButton
+          onClick={handleSendInvitation}
+          disabled={!isFormValid}
+          label="Send Invitation"
+          additionalStyles={{
+            width: "100%",
+            maxWidth: "300px",
+            height: "40px",
+            fontWeight: "bold",
+            borderRadius: "8px",
+          }}
+        />
+      </DialogActions>
+    </Dialog>
   );
 };
 
-const mapActionsToProps = (dispatch) => {
-  return {
-    ...getActions(dispatch),
-  };
-};
+const mapActionsToProps = (dispatch) => ({
+  ...getActions(dispatch),
+});
 
 export default connect(null, mapActionsToProps)(AddFriendDialog);
