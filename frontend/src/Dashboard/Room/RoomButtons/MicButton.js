@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 
-const MicButton = ({ localStream }) => {
+const MicButton = ({ localStream, isFullscreen }) => {
   const [micEnabled, setMicEnabled] = useState(true);
 
   const handleToggleMic = () => {
@@ -12,8 +12,8 @@ const MicButton = ({ localStream }) => {
   };
 
   return (
-    <IconButton onClick={handleToggleMic} style={{ color: "white" }}>
-      {micEnabled ? <MicIcon /> : <MicOffIcon />}
+    <IconButton onClick={handleToggleMic} style={{ color: "white", fontSize: isFullscreen ? "2rem" : "1.5rem" }}>
+      {micEnabled ? <MicIcon style={{ fontSize: isFullscreen ? "2rem" : "1.5rem" }} /> : <MicOffIcon style={{ fontSize: isFullscreen ? "2rem" : "1.5rem" }} />}
     </IconButton>
   );
 };

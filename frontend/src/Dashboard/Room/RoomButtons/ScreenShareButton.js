@@ -13,6 +13,7 @@ const ScreenShareButton = ({
   screenSharingStream,
   setScreenSharingStream,
   isScreenSharingActive,
+  isFullscreen,
 }) => {
   const handleScreenShareToggle = async () => {
     if (!isScreenSharingActive) {
@@ -37,8 +38,8 @@ const ScreenShareButton = ({
   };
 
   return (
-    <IconButton onClick={handleScreenShareToggle} style={{ color: "white" }}>
-      {isScreenSharingActive ? <StopScreenShareIcon /> : <ScreenShareIcon />}
+    <IconButton onClick={handleScreenShareToggle} style={{ color: "white",  fontSize: isFullscreen ? "2rem" : "1.5rem" }}>
+      {isScreenSharingActive ? <StopScreenShareIcon style={{ fontSize: isFullscreen ? "2rem" : "1.5rem" }} /> : <ScreenShareIcon style={{ fontSize: isFullscreen ? "2rem" : "1.5rem" }} />}
     </IconButton>
   );
 };

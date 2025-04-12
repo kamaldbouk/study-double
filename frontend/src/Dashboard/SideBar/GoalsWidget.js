@@ -59,7 +59,6 @@ const GoalsWidget = () => {
                     color: "white",
                     background: "linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173))",
                     position: "relative",
-                    zIndex: 10,
                 }}
             >
                 <ListAltIcon />

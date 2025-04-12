@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 
-const CameraButton = ({ localStream }) => {
+const CameraButton = ({ localStream, isFullscreen }) => {
   const [cameraEnabled, setCameraEnabled] = useState(true);
 
   const handleToggleCamera = () => {
@@ -12,8 +12,8 @@ const CameraButton = ({ localStream }) => {
   };
 
   return (
-    <IconButton onClick={handleToggleCamera} style={{ color: "white" }}>
-      {cameraEnabled ? <VideocamIcon /> : <VideocamOffIcon />}
+    <IconButton onClick={handleToggleCamera} style={{ color: "white", fontSize: isFullscreen ? "2rem" : "1.5rem" }}>
+      {cameraEnabled ? <VideocamIcon style={{ fontSize: isFullscreen ? "2rem" : "1.5rem" }} /> : <VideocamOffIcon style={{ fontSize: isFullscreen ? "2rem" : "1.5rem" }} />}
     </IconButton>
   );
 };

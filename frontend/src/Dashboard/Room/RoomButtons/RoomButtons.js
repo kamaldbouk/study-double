@@ -9,7 +9,7 @@ import { getActions } from '../../../store/actions/roomActions';
 const MainContainer = styled("div")({
     height: "15%",
     width: "100%",
-    backgroundColor: "#5F8575",
+    background: "linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173))",
     borderTopLeftRadius: "8px",
     borderTopRightRadius: "8px",
     display: "flex",
@@ -18,13 +18,15 @@ const MainContainer = styled("div")({
   });
   
 const RoomButtons = (props) => {
-    const { localStream, isUserJoinedWithOnlyAudio } = props;
+    // const { localStream, isUserJoinedWithOnlyAudio } = props;
+    const { localStream, isUserJoinedWithOnlyAudio, isFullscreen } = props;
+
     return ( 
         <MainContainer>
-            {!isUserJoinedWithOnlyAudio && <ScreenShareButton {...props} />}
-            <MicButton localStream={localStream} />
-            <CloseRoomButton />
-            {!isUserJoinedWithOnlyAudio && <CameraButton localStream={localStream} />}
+            {!isUserJoinedWithOnlyAudio && <ScreenShareButton {...props} isFullscreen={isFullscreen} />}
+            <MicButton localStream={localStream} isFullscreen={isFullscreen} />
+            <CloseRoomButton isFullscreen={isFullscreen} />
+            {!isUserJoinedWithOnlyAudio && <CameraButton localStream={localStream} isFullscreen={isFullscreen} />}
         </MainContainer>
      );
 }
