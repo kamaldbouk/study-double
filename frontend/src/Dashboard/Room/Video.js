@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { styled } from "@mui/system";
 // import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 // import { Box } from '@mui/material';
@@ -33,7 +33,7 @@ const VideoEl = styled("video")({
 
 const Video = ({ stream, isLocalStream, index, count }) => {
   const videoRef = useRef();
-  const [isCameraOff, setIsCameraOff] = useState(false);
+  // const [isCameraOff, setIsCameraOff] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;

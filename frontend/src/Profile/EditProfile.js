@@ -164,7 +164,7 @@ const EditProfile = () => {
         "Social Work"
       ];      
     const communicationStyles = ["Direct", "Casual", "Formal", "Collaborative"];
-    const studyTechniques = ["Pomodoro", "112-26", "Blurting", "Other"];
+    // const studyTechniques = ["Pomodoro", "112-26", "Blurting", "Other"];
 
     return ( 
         <div className="bg">

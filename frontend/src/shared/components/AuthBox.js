@@ -41,7 +41,7 @@ const AuthBox = ({ children }) => {
     };
   }, [isLogin]);
 
-  const imageClass = isLogin ? "hero-image" : "virtual-image";
+  // const imageClass = isLogin ? "hero-image" : "virtual-image";
 
   return (
     <div className={`box-wrapper ${isLogin ? "login-bg" : "register-bg"}`}>

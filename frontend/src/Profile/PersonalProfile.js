@@ -63,7 +63,7 @@ const PersonalProfile = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         if (!user?.token) {
             setError("Authorization token required");
-            return;
+            return error;
         }
     
         const today = new Date();
