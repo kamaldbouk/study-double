@@ -250,7 +250,7 @@ import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton"; 
-import CircularProgress from "@mui/material/CircularProgress";  // Add CircularProgress
+import CircularProgress from "@mui/material/CircularProgress";
 import alarm from "../../shared/images/alarm.wav";
 import confetti from "../../shared/images/confetti.gif";
 import Draggable from "react-draggable";
@@ -350,7 +350,6 @@ const TechniquesWidget = () => {
         setIsOpen(false);
     };
 
-    // Calculate progress as a percentage
     const progress = (time / (customTime * 60 || techniqueTimes[selectedTechnique])) * 100;
 
     return (
@@ -423,15 +422,14 @@ const TechniquesWidget = () => {
                         Study Techniques
                     </Typography>
 
-                    <Typography variant="h4" sx={{ textAlign: "center", marginBottom: "10px" }}>
-                        {formatTime(time)}
-                    </Typography>
+                    {/* <Typography variant="h4" sx={{ textAlign: "center", marginBottom: "10px" }}>
+                        // {formatTime(time)}
+                    </Typography> */}
 
                     <Typography variant="body1" sx={{ textAlign: "center", marginBottom: "10px", color: isBreak ? "red" : "green" }}>
                         {isBreak ? "Break Time" : "Study Time"}
                     </Typography>
 
-                    {/* Circular Progress for Timer Animation */}
                     <Box sx={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <CircularProgress
                             variant="determinate"
@@ -440,6 +438,7 @@ const TechniquesWidget = () => {
                             thickness={4}
                             sx={{
                                 color: isBreak ? "red" : "green",
+                                marginBottom: "15px"
                             }}
                         />
                         <Typography
@@ -447,6 +446,7 @@ const TechniquesWidget = () => {
                                 position: "absolute",
                                 fontSize: "1.5rem",
                                 fontWeight: "bold",
+                                marginBottom: "15px"
                             }}
                         >
                             {formatTime(time)}
