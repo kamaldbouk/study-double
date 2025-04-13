@@ -15,8 +15,9 @@ const MainContainer = styled("div")({
 });
 
 const fullScreenRoomStyle = {
-  width: "100%",
+  width: "95%",
   height: "100vh",
+  right: "0",
 };
 
 const minimizedRoomStyle = {

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styled } from "@mui/system";
-// import VideocamOffIcon from '@mui/icons-material/VideocamOff';
-// import { Box } from '@mui/material';
+import VideocamOffIcon from "@mui/icons-material/VideocamOff";
+import { Box } from "@mui/material";
 
 const MainContainer = styled("div")(({ count }) => {
   let width = "100%";
@@ -21,6 +21,7 @@ const MainContainer = styled("div")(({ count }) => {
     backgroundColor: "black",
     borderRadius: "8px",
     overflow: "hidden",
+    position: "relative",
   };
 });
 
@@ -33,37 +34,43 @@ const VideoEl = styled("video")({
 
 const Video = ({ stream, isLocalStream, index, count }) => {
   const videoRef = useRef();
-  // const [isCameraOff, setIsCameraOff] = useState(false);
+  const [cameraOn, setCameraOn] = useState(true);
 
-  useEffect(() => {
-    const video = videoRef.current;
-
+  const checkCameraStatus = () => {
     if (stream) {
       const videoTrack = stream.getVideoTracks()[0];
-      
-      if (videoTrack && videoTrack.enabled) {
-        video.srcObject = stream;
-        video.onloadedmetadata = () => {
-          video.play();
-        };
-        // setIsCameraOff(false); 
-      } else {
-        video.srcObject = null;
-        // setIsCameraOff(true);  
+      const isEnabled = videoTrack && videoTrack.enabled;
+      setCameraOn(isEnabled);
+
+      if (videoRef.current) {
+        if (isEnabled) {
+          if (videoRef.current.srcObject !== stream) {
+            videoRef.current.srcObject = stream;
+            videoRef.current.play().catch((err) => console.error("Error playing video:", err));
+          }
+        } else {
+          videoRef.current.srcObject = null;
+        }
       }
     }
-  }, [stream]);
+  };
 
-  // const showVideo =
-  //   stream &&
-  //   stream.getVideoTracks().length > 0 &&
-  //   stream.getVideoTracks()[0].enabled;
+  useEffect(() => {
+    checkCameraStatus();  
+
+    const intervalId = setInterval(() => {
+      checkCameraStatus();
+    }, 500);
+
+    
+    return () => clearInterval(intervalId);
+  }, [stream]);
 
   return (
     <MainContainer count={count} data-index={index}>
-      {/* {showVideo ? ( */}
+      {cameraOn ? (
         <VideoEl autoPlay playsInline muted={isLocalStream} ref={videoRef} />
-      {/* ) : (
+      ) : (
         <Box
           sx={{
             width: "100%",
@@ -76,7 +83,7 @@ const Video = ({ stream, isLocalStream, index, count }) => {
         >
           <VideocamOffIcon sx={{ fontSize: 64, color: "white" }} />
         </Box>
-      )} */}
+      )}
     </MainContainer>
   );
 };
