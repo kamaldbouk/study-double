@@ -9,12 +9,19 @@ import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Draggable from "react-draggable";
+import axios from "axios";
 
 const GoalsWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [task, setTask] = useState("");
     const [tasks, setTasks] = useState([]);
-    
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user?.token) {
+        console.log("Authorization token required");
+        return;
+    }
+
     const toggleBox = () => {
         setIsOpen(!isOpen);
     };
@@ -23,10 +30,25 @@ const GoalsWidget = () => {
         setTask(e.target.value);
     };
 
-    const handleAddTask = () => {
+    const handleAddTask = async () => {
         if (task.trim()) {
             setTasks([...tasks, { text: task, completed: false }]);
             setTask("");  
+
+            try {
+                await axios.patch(
+                    `http://localhost:5002/api/profile/${user._id}/increment-goals`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`
+                        }
+                    }
+                );
+                console.log("Goal incremented!");
+            } catch (error) {
+                console.error("Error incrementing goal:", error);
+            }
         }
     };
 
