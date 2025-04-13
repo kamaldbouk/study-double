@@ -1,10 +1,32 @@
 import Button from '@mui/material/Button';
 import * as roomHandler from '../../realtimeCommunication/roomHandler';
+import axios from 'axios';
 
 const CreateRoomButton = ({isUserInRoom}) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user?.token) {
+        console.log("Authorization token required");
+        return;
+    }
 
-    const createNewRoomHandler = () => {
-        roomHandler.createNewRoom();
+    const createNewRoomHandler = async () => {
+        try {
+            roomHandler.createNewRoom();
+            await axios.patch(
+                `http://localhost:5002/api/profile/${user._id}/increment-sessions`,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${user.token}`
+                  }
+                }
+              );
+        }
+        catch (err){
+            console.error("Error incrementing session:", err);
+        }
+       
+        
     }
     return ( 
         <Button

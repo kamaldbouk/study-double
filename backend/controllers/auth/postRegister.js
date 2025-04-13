@@ -50,6 +50,9 @@ const postRegister = async (req, res) => {
       preferredBreakLength: null,
       todayStudyLength: 0,
       todayGoals: [],
+      totalSessions: 0,
+      totalGoals: 0,
+      totalTickedGoals: 0,
     });
 
     // create JWT token

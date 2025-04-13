@@ -173,31 +173,48 @@ router.patch("/:id/preferences", async (req, res) => {
   }
 });
 
+router.patch("/:id/increment-sessions", async (req, res) => {
+  const { id } = req.params;
 
-// router.get("/online", async (req, res) => {
-//   try {
-//     const onlineUsers = await OnlineUser.find();
-//     const onlineUsernames = onlineUsers.map((user) => user.username);
+  try {
+    const updatedProfile = await UserProfile.findOneAndUpdate(
+      { userId: id },
+      { $inc: { totalSessions: 1 } },
+      { new: true }
+    );
 
-//     const profiles = await UserProfile.find({ name: { $in: onlineUsernames } });
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
 
-//     res.status(200).json(profiles);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
+    res.status(200).json({ message: "totalSessions incremented!", profile: updatedProfile });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
-// router.get("/major/:major", async (req, res) => {
-//   try {
-//     const { major } = req.params;
-//     const profiles = await UserProfile.find({ major: major });
+router.patch("/:id/increment-goals", async (req, res) => {
+  const { id } = req.params;
 
-//     res.status(200).json(profiles);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
+  try {
+    const updatedProfile = await UserProfile.findOneAndUpdate(
+      { userId: id },
+      { $inc: { totalGoals: 1 } },
+      { new: true }
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.status(200).json({ message: "totalGoals incremented!", profile: updatedProfile });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 
 module.exports = router;

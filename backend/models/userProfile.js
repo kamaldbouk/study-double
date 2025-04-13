@@ -27,6 +27,10 @@ const userProfileSchema = new Schema({
   preferredBreakLength:  { type: Number },
   todayStudyLength: { type: Number },
   todayGoals: [{ type: String}],
+  
+  totalSessions: { type: Number },
+  totalGoals : { type: Number },
+  totalTickedGoals: { type: Number },
 
   personalityTestResults: {
     extraversion: { type: Number, default: 0 },
