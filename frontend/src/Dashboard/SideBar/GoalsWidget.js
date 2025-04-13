@@ -52,11 +52,38 @@ const GoalsWidget = () => {
         }
     };
 
-    const toggleTaskCompletion = (index) => {
+    // const toggleTaskCompletion = (index) => {
+    //     const updatedTasks = [...tasks];
+    //     updatedTasks[index].completed = !updatedTasks[index].completed;
+    //     setTasks(updatedTasks);
+    // };
+
+    const toggleTaskCompletion = async (index) => {
         const updatedTasks = [...tasks];
-        updatedTasks[index].completed = !updatedTasks[index].completed;
+        const taskWasCompleted = updatedTasks[index].completed;
+    
+        updatedTasks[index].completed = !taskWasCompleted;
         setTasks(updatedTasks);
+    
+        // Only call the backend if it's being marked as completed
+        if (!taskWasCompleted) {
+            try {
+                await axios.patch(
+                    `http://localhost:5002/api/profile/${user._id}/increment-ticked-goals`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`
+                        }
+                    }
+                );
+                console.log("Total ticked goals incremented!");
+            } catch (error) {
+                console.error("Error incrementing ticked goals:", error);
+            }
+        }
     };
+    
 
     const deleteTask = (index) => {
         const updatedTasks = tasks.filter((_, i) => i !== index);

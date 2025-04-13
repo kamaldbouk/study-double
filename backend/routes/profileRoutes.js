@@ -215,6 +215,28 @@ router.patch("/:id/increment-goals", async (req, res) => {
   }
 });
 
+router.patch("/:id/increment-ticked-goals", auth, async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    const updatedProfile = await UserProfile.findOneAndUpdate(
+      { userId: id },
+      { $inc: { totalTickedGoals: 1 } },
+      { new: true }
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+
+    res.status(200).json({
+      message: "Total ticked goals incremented successfully",
+      totalTickedGoals: updatedProfile.totalTickedGoals,
+    });
+  } catch (error) {
+    console.error("Error incrementing total ticked goals:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 module.exports = router;
