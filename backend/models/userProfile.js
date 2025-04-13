@@ -5,6 +5,9 @@ const reviewSchema = new Schema({
   senderId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   rating: { type: Number, required: true, min: 1, max: 5 },
   description: { type: String, required: true },
+  // number of sessions counter from +
+  // number of goals + number of ticked goals ratio 20/500
+  // timer ????
   createdAt: { type: Date, default: Date.now }
 });
 

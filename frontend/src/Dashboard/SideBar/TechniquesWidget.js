@@ -11,6 +11,7 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton"; 
 import alarm from "../../shared/images/alarm.wav";
 import confetti from "../../shared/images/confetti.gif";
+import Draggable from "react-draggable";
 
 const TechniquesWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -144,7 +145,9 @@ const TechniquesWidget = () => {
             </Button>
 
             {isOpen && (
-                <Box
+                <Draggable handle=".handle-drag">
+                    <Box
+                    className="handle-drag"
                     component={Paper}
                     elevation={4}
                     sx={{
@@ -156,15 +159,16 @@ const TechniquesWidget = () => {
                         backgroundColor: "white",
                         zIndex: 1000,
                         borderRadius: "8px",
+                        cursor: "move", 
                     }}
-                >
+                    >
                     <IconButton
                         onClick={handleClose}
                         sx={{
-                            position: "absolute",
-                            top: "8px",
-                            right: "8px",
-                            zIndex: 10,
+                        position: "absolute",
+                        top: "8px",
+                        right: "8px",
+                        zIndex: 10,
                         }}
                     >
                         <CloseIcon />
@@ -197,23 +201,23 @@ const TechniquesWidget = () => {
 
                     {selectedTechnique === "Custom" && (
                         <>
-                            <TextField
-                                label="Custom Time (minutes)"
-                                value={customTime}
-                                onChange={handleCustomTimeChange}
-                                type="number"
-                                fullWidth
-                                sx={{ marginTop: "10px" }}
-                            />
+                        <TextField
+                            label="Custom Time (minutes)"
+                            value={customTime}
+                            onChange={handleCustomTimeChange}
+                            type="number"
+                            fullWidth
+                            sx={{ marginTop: "10px" }}
+                        />
 
-                            <TextField
-                                label="Custom Break Time (minutes)"
-                                value={customBreakTime}
-                                onChange={handleCustomBreakTimeChange}
-                                type="number"
-                                fullWidth
-                                sx={{ marginTop: "10px" }}
-                            />
+                        <TextField
+                            label="Custom Break Time (minutes)"
+                            value={customBreakTime}
+                            onChange={handleCustomBreakTimeChange}
+                            type="number"
+                            fullWidth
+                            sx={{ marginTop: "10px" }}
+                        />
                         </>
                     )}
 
@@ -226,8 +230,9 @@ const TechniquesWidget = () => {
                     >
                         {isRunning ? "Stop" : "Start"}
                     </Button>
-                </Box>
-            )}
+                    </Box>
+                </Draggable>
+                )}
         </>
     );
 };

@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
+import Draggable from "react-draggable";
 
 const GoalsWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -63,88 +64,94 @@ const GoalsWidget = () => {
             >
                 <ListAltIcon />
             </Button>
-
             {isOpen && (
-                <Box
-                    component={Paper}
-                    elevation={4}
-                    sx={{
-                        position: "absolute",
-                        top: "20px",
-                        left: "20px",
-                        width: "250px",
-                        padding: "10px",
-                        backgroundColor: "white",
-                        zIndex: 1000,
-                        borderRadius: "8px",
-                        maxHeight: "400px",
-                        overflowY: "auto", 
-                    }}
-                >
-                    <IconButton
-                        onClick={handleClose}
+                <Draggable handle=".draggable-header">
+                    <Box
+                        component={Paper}
+                        elevation={4}
                         sx={{
                             position: "absolute",
-                            top: "8px",
-                            right: "8px",
+                            top: "20px",
+                            left: "20px",
+                            width: "250px",
+                            padding: "10px",
+                            backgroundColor: "white",
+                            zIndex: 1000,
+                            borderRadius: "8px",
+                            maxHeight: "400px",
+                            overflowY: "auto",
+                            cursor: "move",
                         }}
                     >
-                        <CloseIcon />
-                    </IconButton>
+                        <IconButton
+                            onClick={handleClose}
+                            sx={{
+                                position: "absolute",
+                                top: "8px",
+                                right: "8px",
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
 
-                    <Typography variant="h6" sx={{ marginBottom: "10px" }}>
-                        To-Do List
-                    </Typography>
+                        <Typography
+                            variant="h6"
+                            className="draggable-header"
+                            sx={{ marginBottom: "10px", cursor: "move" }}
+                        >
+                            To-Do List
+                        </Typography>
 
-                    <TextField
-                        label="New Task"
-                        value={task}
-                        onChange={handleTaskChange}
-                        fullWidth
-                        sx={{ marginBottom: "10px" }}
-                    />
+                        <TextField
+                            label="New Task"
+                            value={task}
+                            onChange={handleTaskChange}
+                            fullWidth
+                            sx={{ marginBottom: "10px" }}
+                        />
 
-                    <Button
-                        onClick={handleAddTask}
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        sx={{ marginBottom: "10px" }}
-                    >
-                        Add Task
-                    </Button>
+                        <Button
+                            onClick={handleAddTask}
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            sx={{ marginBottom: "10px" }}
+                        >
+                            Add Task
+                        </Button>
 
-                    <div>
-                        {tasks.map((task, index) => (
-                            <Box
-                                key={index}
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                    marginBottom: "8px",
-                                }}
-                            >
-                                <Checkbox
-                                    checked={task.completed}
-                                    onChange={() => toggleTaskCompletion(index)}
-                                />
-                                <Typography
-                                    variant="body1"
+                        <div>
+                            {tasks.map((task, index) => (
+                                <Box
+                                    key={index}
                                     sx={{
-                                        textDecoration: task.completed ? "line-through" : "none",
-                                        flexGrow: 1,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        marginBottom: "8px",
                                     }}
                                 >
-                                    {task.text}
-                                </Typography>
-                                <IconButton onClick={() => deleteTask(index)} sx={{ padding: 0 }}>
-                                    <CloseIcon />
-                                </IconButton>
-                            </Box>
-                        ))}
-                    </div>
-                </Box>
+                                    <Checkbox
+                                        checked={task.completed}
+                                        onChange={() => toggleTaskCompletion(index)}
+                                    />
+                                    <Typography
+                                        variant="body1"
+                                        sx={{
+                                            textDecoration: task.completed ? "line-through" : "none",
+                                            flexGrow: 1,
+                                        }}
+                                    >
+                                        {task.text}
+                                    </Typography>
+                                    <IconButton onClick={() => deleteTask(index)} sx={{ padding: 0 }}>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </Box>
+                            ))}
+                        </div>
+                    </Box>
+                </Draggable>
             )}
         </>
     );
