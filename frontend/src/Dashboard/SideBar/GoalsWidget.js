@@ -74,13 +74,14 @@ const GoalsWidget = () => {
                             top: "20px",
                             left: "20px",
                             width: "250px",
-                            padding: "10px",
+                            padding: "16px",
                             backgroundColor: "white",
                             zIndex: 1000,
                             borderRadius: "8px",
                             maxHeight: "400px",
                             overflowY: "auto",
                             cursor: "move",
+                            boxShadow: 4,
                         }}
                     >
                         <IconButton
@@ -97,7 +98,7 @@ const GoalsWidget = () => {
                         <Typography
                             variant="h6"
                             className="draggable-header"
-                            sx={{ marginBottom: "10px", cursor: "move" }}
+                            sx={{ marginBottom: "16px", cursor: "move", fontWeight: 'bold' }}
                         >
                             To-Do List
                         </Typography>
@@ -107,7 +108,11 @@ const GoalsWidget = () => {
                             value={task}
                             onChange={handleTaskChange}
                             fullWidth
-                            sx={{ marginBottom: "10px" }}
+                            sx={{
+                                marginBottom: "16px",
+                                input: { fontSize: '14px' },
+                                '& .MuiInputLabel-root': { fontSize: '14px' },
+                            }}
                         />
 
                         <Button
@@ -115,7 +120,7 @@ const GoalsWidget = () => {
                             variant="contained"
                             color="primary"
                             fullWidth
-                            sx={{ marginBottom: "10px" }}
+                            sx={{ marginBottom: "16px" }}
                         >
                             Add Task
                         </Button>
@@ -128,23 +133,39 @@ const GoalsWidget = () => {
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "space-between",
+                                        padding: "8px",
+                                        backgroundColor: task.completed ? "#f0f8ff" : "transparent",
+                                        borderRadius: "4px",
                                         marginBottom: "8px",
+                                        transition: "background-color 0.3s ease",
+                                        maxWidth: "100%",
                                     }}
                                 >
                                     <Checkbox
                                         checked={task.completed}
                                         onChange={() => toggleTaskCompletion(index)}
+                                        sx={{
+                                            color: task.completed ? "green" : "default",
+                                        }}
                                     />
                                     <Typography
                                         variant="body1"
                                         sx={{
                                             textDecoration: task.completed ? "line-through" : "none",
                                             flexGrow: 1,
+                                            fontSize: "14px",
+                                            color: task.completed ? "#808080" : "black",
+                                            transition: "color 0.3s ease",
+                                            wordWrap: "break-word", 
+                                            whiteSpace: "normal", 
                                         }}
                                     >
                                         {task.text}
                                     </Typography>
-                                    <IconButton onClick={() => deleteTask(index)} sx={{ padding: 0 }}>
+                                    <IconButton
+                                        onClick={() => deleteTask(index)}
+                                        sx={{ padding: 0, color: "#f44336" }}
+                                    >
                                         <CloseIcon />
                                     </IconButton>
                                 </Box>
