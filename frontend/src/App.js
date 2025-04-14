@@ -16,6 +16,7 @@ import PersonalProfile from "./Profile/PersonalProfile";
 import PersonalProfile2 from "./Profile/PersonalProfile2";
 import PersonalityTest from "./Profile/PersonalityTest";
 import EditProfile from "./Profile/EditProfile";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
