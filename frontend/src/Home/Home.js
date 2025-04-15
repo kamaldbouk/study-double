@@ -70,7 +70,7 @@ const Home = () => {
             <div className="circle circle4"></div>
             <div className="circle circle5"></div> */}
 
-            <h2 className="section-title">How It Works</h2>
+            <h2 className="section-title">How does it work?</h2>
             <div className="steps-row">
                 <div className="step">
                 <div className="number-circle">1</div>
@@ -96,7 +96,7 @@ const Home = () => {
 
 
             <section className="thirdSection">
-                <h2>How does it work?</h2>
+                <h2>How will I be matched?</h2>
                 <div className="match-item">
                     <img src={clock} alt="Availability" className="match-img" />
                     <h3>Match Based on Availability</h3>
