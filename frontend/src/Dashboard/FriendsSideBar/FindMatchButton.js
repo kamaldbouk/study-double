@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CustomPrimaryButton from "../../shared/components/CustomPrimaryButton";
-import AddFriendDialog from "./AddFriendDialog";
+import FindMatchDialog from "./FindMatchDialog";
 
 const additionalStyles = {
   marginTop: "10px",
@@ -36,7 +36,7 @@ const FindMatch = () => {
         label="Find Match"
         onClick={handleOpenAddFriendDialog}
       />
-      <AddFriendDialog
+      <FindMatchDialog
         isDialogOpen={isDialogOpen}
         closeDialogHandler={handleCloseAddFriendDialog}
       />

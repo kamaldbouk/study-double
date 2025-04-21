@@ -239,4 +239,14 @@ router.patch("/:id/increment-ticked-goals", auth, async (req, res) => {
   }
 });
 
+router.get("/random/five", async (req, res) => {
+  try {
+    const randomProfiles = await UserProfile.aggregate([{ $sample: { size: 5 } }]);
+    res.status(200).json(randomProfiles);
+  } catch (err) {
+    console.error("Error fetching random users:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
