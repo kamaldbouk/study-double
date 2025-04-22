@@ -107,7 +107,7 @@ const GoalsWidget = () => {
                     minWidth: 0,
                     marginTop: "10px",
                     color: "white",
-                    background: "linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173))",
+                    background: "linear-gradient(135deg, rgb(242, 153, 255), rgb(255, 102, 178))",
                     position: "relative",
                 }}
             >

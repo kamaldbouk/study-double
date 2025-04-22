@@ -41,7 +41,7 @@ const CreateRoomButton = ({isUserInRoom}) => {
                 minWidth: 0,
                 marginTop: "10px",
                 color: "white",
-                background: "linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173))",
+                background: "linear-gradient(135deg, rgb(144, 238, 144), rgb(0, 100, 0))",
                 fontSize: '25px'
             }}
             >

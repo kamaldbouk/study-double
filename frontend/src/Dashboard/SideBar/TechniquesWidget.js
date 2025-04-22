@@ -140,7 +140,7 @@ const TechniquesWidget = () => {
                     minWidth: 0,
                     marginTop: "10px",
                     color: "white",
-                    background: "linear-gradient(135deg, rgb(100, 72, 255), rgb(0, 217, 173))",
+                    background: "linear-gradient(135deg, rgb(75, 0, 130), rgb(216, 191, 216))",
                     position: "relative",
                 }}
             >
