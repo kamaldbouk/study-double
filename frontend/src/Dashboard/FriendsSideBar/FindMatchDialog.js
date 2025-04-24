@@ -43,8 +43,11 @@ const FindMatchDialog = ({ isDialogOpen, closeDialogHandler }) => {
 
     const fetchRandomUsers = async () => {
       try {
+        // const response = await axios.get("http://localhost:5002/api/profile/random/five");
+        // setRandomUsers(response.data);
         const response = await axios.get("http://localhost:5002/api/profile/random/five");
-        setRandomUsers(response.data);
+        const filteredUsers = response.data.filter((user) => user.userId !== userId);
+        setRandomUsers(filteredUsers);
 
         const statuses = {};
         const pending = {};
@@ -86,7 +89,6 @@ const FindMatchDialog = ({ isDialogOpen, closeDialogHandler }) => {
         });
       }, 1000); 
 
-      // Phrase changing logic
       phraseInterval = setInterval(() => {
         setLoadingPhrase((prevPhrase) => {
           const currentIndex = loadingPhrases.indexOf(prevPhrase);
@@ -202,7 +204,7 @@ const FindMatchDialog = ({ isDialogOpen, closeDialogHandler }) => {
                     <strong>Age:</strong> {user.age || "N/A"}
                   </Typography>
                   <Typography variant="body2">
-                    <strong>Bio:</strong> {user.bio || "No bio provided"}
+                    <strong>Bio:</strong> {user.biography || "No bio provided"}
                   </Typography>
                 </div>
 
