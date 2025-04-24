@@ -13,6 +13,7 @@ import CustomPrimaryButton from "../../shared/components/CustomPrimaryButton";
 import Snackbar from "@mui/material/Snackbar"; 
 import Alert from "@mui/material/Alert"; 
 import { Link } from "react-router-dom"; 
+import StarIcon from "@mui/icons-material/Star";
 
 const FindMatchDialog = ({ isDialogOpen, closeDialogHandler }) => {
   const [loading, setLoading] = useState(true);
@@ -201,14 +202,36 @@ const FindMatchDialog = ({ isDialogOpen, closeDialogHandler }) => {
                     </strong>
                   </Typography>
                   <Typography variant="body2">
-                    <strong>Age:</strong> {user.age || "N/A"}
-                  </Typography>
-                  <Typography variant="body2">
                     <strong>Bio:</strong> {user.biography || "No bio provided"}
                   </Typography>
+                  {user.reviews && user.reviews.length > 0 ? (
+                    <div className="reviews-explore">
+                      <p>
+                        {(() => {
+                          const averageRating = (
+                            user.reviews.reduce((sum, review) => sum + review.rating, 0) /
+                            user.reviews.length
+                          ).toFixed(1);
+                          const fullStars = Math.floor(averageRating);
+
+                          return (
+                            <>
+                              {Array(fullStars)
+                                .fill()
+                                .map((_, i) => (
+                                  <StarIcon key={`star-${i}`} className="star" />
+                                ))}
+                            </>
+                          );
+                        })()}
+                      </p>
+                    </div>
+                  ) : (
+                    <p>No reviews yet</p>
+                  )}
                 </div>
 
-                <div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {pendingRequests[user.userId] ? (
                     <button
                       style={{

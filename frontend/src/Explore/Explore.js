@@ -103,7 +103,7 @@ const Explore = () => {
         <div className="user-cards-container">
           {users.length > 0 ? (
             users
-            .filter(user => user.userId !== userId) // <-- filter out logged-in user
+            .filter(user => user.userId !== userId) 
             .map((user) => (
               <div
                 key={user.userId}
