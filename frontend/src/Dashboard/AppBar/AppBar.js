@@ -10,7 +10,7 @@ const MainContainer = styled("div")(({ sidebarVisible }) => ({
   height: "48px",
   borderBottom: "1px solid black",
   backgroundColor: "#36393f",
-  width: sidebarVisible ? "calc(100% - 294px)" : "96.3%", 
+  width: sidebarVisible ? "calc(100% - 294px)" : "95.2%", 
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
