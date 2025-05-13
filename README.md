@@ -21,7 +21,7 @@ StudyDouble is a web-based real-time study matching platform designed to help st
 
 ### 1. Clone the repository
 
-git clone https://github.com/your-username/studydouble.git
+git clone https://github.com/kamaldbouk/studydouble.git
 cd studydouble
 
 ### 2. Setup the Server
